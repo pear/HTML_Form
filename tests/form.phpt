@@ -483,14 +483,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="text" name="nm" size="20" value="" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="text" name="nm" size="20" value="" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="text" name="nm" size="20" value="" />
   </td>
@@ -499,7 +499,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="text" name="nm" size="20" value="" />
   </td>
@@ -547,7 +547,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="password" name="nm" size="8" value="" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="password" name="nm" size="8" value="" />
    repeat: <input type="password" name="nm2" size="8" value="" />
@@ -555,7 +555,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="password" name="nm" size="8" value="" />
    repeat: <input type="password" name="nm2" size="8" value="" />
@@ -565,7 +565,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="password" name="nm" size="8" value="" />
    repeat: <input type="password" name="nm2" size="8" value="" />
@@ -617,14 +617,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="checkbox" name="nm" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="checkbox" name="nm" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="checkbox" name="nm" />
   </td>
@@ -633,7 +633,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="checkbox" name="nm" />
   </td>
@@ -681,14 +681,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <textarea name="nm" cols="40" rows="5" ></textarea>
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <textarea name="nm" cols="40" rows="5" ></textarea>
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <textarea name="nm" cols="40" rows="5" ></textarea>
   </td>
@@ -697,7 +697,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <textarea name="nm" cols="40" rows="5" ></textarea>
   </td>
@@ -745,14 +745,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="submit" name="nm" value="Ttl" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
@@ -761,7 +761,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
@@ -809,14 +809,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="reset" value="Ttl" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="reset" value="Ttl" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="reset" value="Ttl" />
   </td>
@@ -825,7 +825,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</td>
   <td >
    <input type="reset" value="Ttl" />
   </td>
@@ -879,7 +879,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
    </select>
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="0">first</option>
@@ -889,7 +889,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="0">first</option>
@@ -901,7 +901,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="0">first</option>
@@ -926,7 +926,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
    </select>
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="a">first</option>
@@ -936,7 +936,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="a">first</option>
@@ -948,7 +948,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <select name="nm" size="1" >
     <option value="a">first</option>
@@ -1019,14 +1019,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="radio" name="nm" value="v" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="radio" name="nm" value="v" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="radio" name="nm" value="v" />
   </td>
@@ -1035,7 +1035,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="radio" name="nm" value="v" />
   </td>
@@ -1083,14 +1083,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="image" name="nm" src="gr" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="image" name="nm" src="gr" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="image" name="nm" src="gr" />
   </td>
@@ -1099,7 +1099,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="image" name="nm" src="gr" />
   </td>
@@ -1169,19 +1169,19 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 ============ BLANK DEFAULT ============
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >&nbsp;</td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >&nbsp;</td>
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >&nbsp;</td>
  </tr>
 </table>
@@ -1213,27 +1213,27 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 ============ BLANK DEFAULT 2 ============
 ------------ RETURN ROW
  <tr>
-  <th align="right">&nbsp;</th>
+  <th align="right" valign="top">&nbsp;</th>
   <td >&nbsp;</td>
  </tr>
  <tr>
-  <th align="right">&nbsp;</th>
+  <th align="right" valign="top">&nbsp;</th>
   <td >&nbsp;</td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">&nbsp;</th>
+  <th align="right" valign="top">&nbsp;</th>
   <td >&nbsp;</td>
  </tr>
  <tr>
-  <th align="right">&nbsp;</th>
+  <th align="right" valign="top">&nbsp;</th>
   <td >&nbsp;</td>
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >&nbsp;</td>
  </tr>
 </table>
@@ -1283,7 +1283,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
    <input type="file" name="nm" size="20" />
 ------------ RETURN ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
    <input type="file" name="nm" size="20" />
@@ -1291,7 +1291,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
    <input type="file" name="nm" size="20" />
@@ -1301,7 +1301,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" enctype="multipart/form-data" >
 <table >
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
    <input type="file" name="nm" size="20" />
@@ -1366,7 +1366,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
   A Caption For You
  </caption>
  <tr>
-  <th align="right">Ttl</th>
+  <th align="right" valign="top">Ttl</th>
   <td >
    <input type="text" name="nm" size="20" value="" />
   </td>
