@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.15 2004-09-21 18:09:32 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.16 2004-09-21 18:20:02 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -32,6 +32,8 @@ This package has been superceded by HTML_QuickForm.
 * Added HTML_FORM_TH_ATTR and HTML_FORM_TD_ATTR constants.
 Used as default values for the $thattr and $tdattr
 parameters to most methods.
+
+* Enhance docblocks.
       ]]>
     </notes>
     <filelist>
