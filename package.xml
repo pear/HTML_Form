@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "../../php4/pehttp://pear.php.net/dtd/package-1.0">
-<!-- do not use the "Type" attribute here, that one is only for
-     generated package.xml files -->
 <package version="1.0">
+  <!-- $Id: package.xml,v 1.7 2004-05-28 06:28:31 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
 This is a simple HTML form generator.  It supports all the
 HTML form element types including file uploads, may return
 or print the form, just individual form elements or the full
-form in "table mode" with a fixed layout.
-</description>
+form in &quot;table mode&quot; with a fixed layout.
+  </description>
   <license>PHP License</license>
   <maintainers>
     <maintainer>
@@ -18,17 +16,107 @@ form in "table mode" with a fixed layout.
       <name>Stig Sæther Bakken</name>
       <email>stig@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@php.net</email>
+    </maintainer>
   </maintainers>
   <release>
-    <version>1.0.1</version>
-    <state>stable</state>
-    <date>2003-04-09</date>
-    <notes>Packaging fix</notes>
+    <version>1.1.0RC1</version>
+    <state>beta</state>
+    <date>2004-05-28</date>
+    <notes>
+     <![CDATA[
+* Don't pass $this->action through basename() in
+returnStart() or start().  Bug #658.
+
+* Add docblock comments for methods with unusual
+parameter orders.  Bug #659.
+
+* addImage() now works.  Accomplished by adding
+displayImage(), displayImageRow(), returnImageRow()
+and returnImage() methods.  Bug #1126.
+
+* Add new methods: returnRadio(), returnRadioRow()
+and returnFileRow().
+
+* $maxlength parameter added to returnText(),
+returnTextRow(), returnPassword(), returnPasswordRow(),
+returnTextarea() and returnTextareaRow() for
+consistency with display*() methods' parameters.
+
+* Add $maxlength to addPassword(), displayPassword(),
+and displayPasswordRow().
+
+* $accept parameter added to returnMultipleFiles()
+and returnFile() for consistency with addFile().
+
+* Add $attr parameter to most methods.
+
+* valign="top" added to <td> in returnPlaintextRow()
+for consistency with displayPlaintextRow().
+
+* displayFile() and displayMultipleFiles() now
+produce a separate hidden input for MAX_FILE_SIZE.
+
+* returnCheckbox() now does a type sensitive
+comparison on $default to determine if checked.
+
+* ":" now appears in each $title.
+
+* Ease maintenance by having all display*() methods
+just print the results of the return*() methods.
+
+* $default parameter to addCheckbox() now defaults
+to FALSE.
+
+* $default parameter to addTextarea() and
+addPassword() now defaults an empty string.
+
+* Define the constants used by addTextarea():
+HTML_FORM_TEXTAREA_WT and HTML_FORM_TEXTAREA_HT.
+
+* Add "$multipartformdata = false" parameter to
+start() for compatibility with returnStart().
+
+* Have returnStart() put $this->enctype and
+$this->target into the <form> element's attributes.
+
+* register_long_arrays can now be Off.
+
+* Change checked to checked="checked".
+
+* Clean up nesting/indenting of HTML output.
+
+* Change while/list/each to foreach in
+returnSelect() and returnEnd().
+
+* Remove references from $entries parameter to
+returnSelectRow() and displaySelectRow().
+
+* returnEnd() no longer populates _fields
+for addBlank() items.
+
+* Fix $defined variable values in display():
+reset:  0 should have been 1
+submit: 0 should have been 2
+blank:  0 should have been 1
+radio:  3 should have been 1
+select: 4 should have been 5
+     ]]>
+    </notes>
     <filelist>
      <file role="php" name="HTML/Form.php"/>
     </filelist>
   </release>
   <changelog>
+    <release>
+      <version>1.0.1</version>
+      <state>stable</state>
+      <date>2003-04-09</date>
+      <notes>Packaging fix</notes>
+    </release>
     <release>
       <version>1.0</version>
       <state>stable</state>
