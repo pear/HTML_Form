@@ -12,6 +12,8 @@ HTML_Form
  * @version  $Id$
  */
 
+error_reporting(E_ALL & ~E_STRICT);
+
 if (!defined('PATH_SEPARATOR')) {
     if (stristr(PHP_OS, 'WIN')) {
         define('PATH_SEPARATOR', ';');
@@ -45,7 +47,7 @@ if ('@include_path@' != '@'.'include_path'.'@') {
 }
 
 require_once 'HTML/Form.php';
-$form =& new HTML_Form('test.php');
+$form = new HTML_Form('test.php');
 
 
 echo "============ TEXT DEFAULTS ============\n";
@@ -466,7 +468,7 @@ echo $form->returnMultipleFiles('nm', 9, 2, 5, 'ac', 'id="i"');
 
 
 echo "============ FORM MANUAL ============\n";
-$tmp =& new HTML_Form('test.php', 'post', 'nm', 'tgt', 'enc', 'id="i"');
+$tmp = new HTML_Form('test.php', 'post', 'nm', 'tgt', 'enc', 'id="i"');
 $tmp->addText('nm', 'Ttl');
 $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 
