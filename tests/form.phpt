@@ -495,7 +495,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -527,7 +527,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -561,7 +561,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -596,7 +596,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -629,7 +629,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -661,7 +661,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -693,7 +693,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -725,7 +725,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -757,7 +757,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">&nbsp;</td>
   <td >
@@ -789,7 +789,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">&nbsp;</td>
   <td class="d">
@@ -821,7 +821,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">&nbsp;</td>
   <td >
@@ -853,7 +853,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">&nbsp;</td>
   <td class="d">
@@ -897,7 +897,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -944,7 +944,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -995,7 +995,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -1031,7 +1031,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -1063,7 +1063,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -1095,7 +1095,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -1127,7 +1127,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
@@ -1145,7 +1145,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="hidden" name="nm" value="v" />
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
 </table>
 <input type="hidden" name="nm" value="v" />
 <input type="hidden" name="_fields" value="nm" />
@@ -1158,7 +1158,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="hidden" name="nm" value="v" id="i"/>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
 </table>
 <input type="hidden" name="nm" value="v" id="i"/>
 <input type="hidden" name="_fields" value="nm" />
@@ -1177,7 +1177,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >&nbsp;</td>
@@ -1199,7 +1199,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">&nbsp;</td>
@@ -1229,7 +1229,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >&nbsp;</td>
@@ -1259,7 +1259,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" >
-<table>
+<table >
  <tr>
   <th class="h">&nbsp;</th>
   <td class="d">&nbsp;</td>
@@ -1297,7 +1297,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" enctype="multipart/form-data" >
-<table>
+<table >
  <tr>
   <th align="right">Ttl:</th>
   <td >
@@ -1334,7 +1334,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
  </tr>
 ------------ DISPLAY ADD
 <form action="test.php" method="get" enctype="multipart/form-data" >
-<table>
+<table >
  <tr>
   <th class="h">Ttl:</th>
   <td class="d">
