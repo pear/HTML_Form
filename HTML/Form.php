@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2002 The PHP Group                                |
+// | Copyright (c) 1997-2004 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -21,11 +21,6 @@
 // $Id$
 //
 // HTML form utility functions.
-
-
-// TODO
-// * add $class parameter/tag for add*() and *Row() methods which will
-//       then get inserted into the <th> and <td> tags.
 
 
 if (!defined('HTML_FORM_TEXT_SIZE')) {
@@ -160,6 +155,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -169,10 +168,10 @@ class HTML_Form
      */
     function addText($name, $title, $default = '',
                      $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                     $attr = '')
+                     $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         $this->fields[] = array('text', $name, $title, $default, $size,
-                                $maxlength, $attr);
+                                $maxlength, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -188,6 +187,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -197,10 +200,11 @@ class HTML_Form
      */
     function addPassword($name, $title, $default = '',
                          $size = HTML_FORM_PASSWD_SIZE,
-                         $maxlength = 0, $attr = '')
+                         $maxlength = 0, $attr = '', $thattr = 'align="right"',
+                         $tdattr = '')
     {
         $this->fields[] = array('password', $name, $title, $default, $size,
-                                $maxlength, $attr);
+                                $maxlength, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -214,6 +218,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -221,9 +229,11 @@ class HTML_Form
      *      HTML_Form::displayCheckbox(), HTML_Form::displayCheckboxRow(),
      *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
-    function addCheckbox($name, $title, $default = false, $attr = '')
+    function addCheckbox($name, $title, $default = false, $attr = '',
+                         $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('checkbox', $name, $title, $default, $attr);
+        $this->fields[] = array('checkbox', $name, $title, $default, $attr,
+                                $thattr, $tdattr);
     }
 
     // }}}
@@ -242,6 +252,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -252,10 +266,10 @@ class HTML_Form
     function addTextarea($name, $title, $default = '',
                          $width = HTML_FORM_TEXTAREA_WT,
                          $height = HTML_FORM_TEXTAREA_HT, $maxlength = 0,
-                         $attr = '')
+                         $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         $this->fields[] = array('textarea', $name, $title, $default, $width,
-                                $height, $maxlength, $attr);
+                                $height, $maxlength, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -268,6 +282,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -276,9 +294,10 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function addSubmit($name = 'submit', $title = 'Submit Changes',
-                       $attr = '')
+                       $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('submit', $name, $title, $attr);
+        $this->fields[] = array('submit', $name, $title, $attr, $thattr,
+                                $tdattr);
     }
 
     // }}}
@@ -292,6 +311,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -299,9 +322,10 @@ class HTML_Form
      *      HTML_Form::displayReset(), HTML_Form::displayResetRow(),
      *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
-    function addReset($title = 'Discard Changes', $attr = '')
+    function addReset($title = 'Discard Changes', $attr = '',
+                      $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('reset', $title, $attr);
+        $this->fields[] = array('reset', $title, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -324,6 +348,10 @@ class HTML_Form
      * @param bool   $multiple  a bool saying if multiple choices are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -332,10 +360,12 @@ class HTML_Form
      *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
     function addSelect($name, $title, $entries, $default = '', $size = 1,
-                       $blank = '', $multiple = false, $attr = '')
+                       $blank = '', $multiple = false, $attr = '',
+                       $thattr = 'align="right"', $tdattr = '')
     {
         $this->fields[] = array('select', $name, $title, $entries, $default,
-                                $size, $blank, $multiple, $attr);
+                                $size, $blank, $multiple, $attr, $thattr,
+                                $tdattr);
     }
 
     // }}}
@@ -350,6 +380,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -357,10 +391,11 @@ class HTML_Form
      *      HTML_Form::displayRadio(), HTML_Form::displayRadioRow(),
      *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
-    function addRadio($name, $title, $value, $default = false, $attr = '')
+    function addRadio($name, $title, $value, $default = false, $attr = '',
+                      $thattr = 'align="right"', $tdattr = '')
     {
         $this->fields[] = array('radio', $name, $title, $value, $default,
-                                $attr);
+                                $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -375,6 +410,10 @@ class HTML_Form
      *                           Can be a relative path or full URI.
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -382,9 +421,11 @@ class HTML_Form
      *      HTML_Form::displayImage(), HTML_Form::displayImageRow(),
      *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      */
-    function addImage($name, $title, $src, $attr = '')
+    function addImage($name, $title, $src, $attr = '',
+                      $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('image', $name, $title, $src, $attr);
+        $this->fields[] = array('image', $name, $title, $src, $attr, $thattr,
+                                $tdattr);
     }
 
     // }}}
@@ -417,7 +458,10 @@ class HTML_Form
      * @param int    $i         the number of rows to create.  Ignored if
      *                           $title is used.
      * @param string $title     a string to be used as the label for the row
-     *
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -425,9 +469,9 @@ class HTML_Form
      *      HTML_Form::displayBlank(), HTML_Form::displayBlankRow(),
      *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
-    function addBlank($i, $title = '')
+    function addBlank($i, $title = '', $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('blank', $i, $title);
+        $this->fields[] = array('blank', $i, $title, $thattr, $tdattr);
     }
 
     // }}}
@@ -444,6 +488,10 @@ class HTML_Form
      * @param string $accept    a string saying which MIME types are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -453,11 +501,12 @@ class HTML_Form
      *      HTML_Form::returnMultipleFiles()
      */
     function addFile($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
-                     $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '')
+                     $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '',
+                     $thattr = 'align="right"', $tdattr = '')
     {
         $this->enctype = "multipart/form-data";
         $this->fields[] = array('file', $name, $title, $maxsize, $size,
-                                $accept, $attr);
+                                $accept, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -470,6 +519,10 @@ class HTML_Form
      * @param string $text      a string to be displayed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -477,9 +530,11 @@ class HTML_Form
      *      HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
-    function addPlaintext($title, $text = '&nbsp;', $attr = '')
+    function addPlaintext($title, $text = '&nbsp;', $attr = '',
+                          $thattr = 'align="right"', $tdattr = '')
     {
-        $this->fields[] = array('plaintext', $title, $text, $attr);
+        $this->fields[] = array('plaintext', $title, $text, $attr, $thattr,
+                                $tdattr);
     }
 
 
@@ -561,6 +616,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -570,10 +629,10 @@ class HTML_Form
      */
     function displayTextRow($name, $title, $default = '',
                             $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                            $attr = '')
+                            $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnTextRow($name, $title, $default, $size,
-                                       $maxlength, $attr);
+                                       $maxlength, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -616,6 +675,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -625,10 +688,12 @@ class HTML_Form
      */
     function displayPasswordRow($name, $title, $default = '',
                                 $size = HTML_FORM_PASSWD_SIZE,
-                                $maxlength = 0, $attr = '')
+                                $maxlength = 0, $attr = '',
+                                $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnPasswordRow($name, $title, $default,
-                                           $size, $maxlength, $attr);
+                                           $size, $maxlength, $attr, $thattr,
+                                           $tdattr);
     }
 
     // }}}
@@ -664,6 +729,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -671,9 +740,11 @@ class HTML_Form
      * @see HTML_Form::displayCheckboxRow(), HTML_Form::addCheckbox(),
      *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
-    function displayCheckboxRow($name, $title, $default = false, $attr = '')
+    function displayCheckboxRow($name, $title, $default = false, $attr = '',
+                                $thattr = 'align="right"', $tdattr = '')
     {
-        print HTML_Form::returnCheckboxRow($name, $title, $default, $attr);
+        print HTML_Form::returnCheckboxRow($name, $title, $default, $attr,
+                                           $thattr, $tdattr);
     }
 
     // }}}
@@ -721,6 +792,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -729,10 +804,12 @@ class HTML_Form
      *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
     function displayTextareaRow($name, $title, $default = '', $width = 40,
-                                $height = 5, $maxlength = 0, $attr = '')
+                                $height = 5, $maxlength = 0, $attr = '',
+                                $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnTextareaRow($name, $title, $default, $width,
-                                           $height, $maxlength, $attr);
+                                           $height, $maxlength, $attr, $thattr,
+                                           $tdattr);
     }
 
     // }}}
@@ -770,6 +847,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -778,9 +859,9 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function displaySubmitRow($name = 'submit', $title = 'Submit Changes',
-                              $attr = '')
+                              $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
-        print HTML_Form::returnSubmitRow($name, $title, $attr);
+        print HTML_Form::returnSubmitRow($name, $title, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -817,6 +898,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -824,9 +909,10 @@ class HTML_Form
      * @see HTML_Form::displayReset(), HTML_Form::addReset(),
      *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
-    function displayResetRow($title = 'Clear contents', $attr = '')
+    function displayResetRow($title = 'Clear contents', $attr = '',
+                             $thattr = 'align="right"', $tdattr = '')
     {
-        print HTML_Form::returnResetRow($title, $attr);
+        print HTML_Form::returnResetRow($title, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -882,6 +968,10 @@ class HTML_Form
      * @param bool   $multiple  a bool saying if multiple choices are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -891,10 +981,11 @@ class HTML_Form
      */
     function displaySelectRow($name, $title, $entries, $default = '',
                               $size = 1, $blank = '', $multiple = false,
-                              $attr = '')
+                              $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnSelectRow($name, $title, $entries, $default,
-                                         $size, $blank, $multiple, $attr);
+                                         $size, $blank, $multiple, $attr,
+                                         $thattr, $tdattr);
     }
 
     // }}}
@@ -933,6 +1024,10 @@ class HTML_Form
      *                           Can be a relative path or full URI.
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -941,9 +1036,11 @@ class HTML_Form
      *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      * @since Method available since Release 1.1.0
      */
-    function displayImageRow($name, $title, $src, $attr = '')
+    function displayImageRow($name, $title, $src, $attr = '',
+                             $thattr = 'align="right"', $tdattr = '')
     {
-        print HTML_Form::returnImageRow($name, $title, $src, $attr);
+        print HTML_Form::returnImageRow($name, $title, $src, $attr, $thattr,
+                                        $tdattr);
     }
 
     // }}}
@@ -1005,6 +1102,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -1013,10 +1114,10 @@ class HTML_Form
      *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function displayRadioRow($name, $title, $value, $default = false,
-                             $attr = '')
+                             $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnRadioRow($name, $title, $value, $default,
-                                        $attr);
+                                        $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -1046,7 +1147,10 @@ class HTML_Form
      * @param int    $i         the number of rows to create.  Ignored if
      *                           $title is used.
      * @param string $title     a string to be used as the label for the row
-     *
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -1054,9 +1158,10 @@ class HTML_Form
      * @see HTML_Form::displayBlank(), HTML_Form::addBlank(),
      *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
-    function displayBlankRow($i, $title= '')
+    function displayBlankRow($i, $title= '', $thattr = 'align="right"',
+                             $tdattr = '')
     {
-        print HTML_Form::returnBlankRow($i, $title);
+        print HTML_Form::returnBlankRow($i, $title, $thattr, $tdattr);
     }
 
     // }}}
@@ -1101,6 +1206,10 @@ class HTML_Form
      * @param string $accept    a string saying which MIME types are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -1111,10 +1220,10 @@ class HTML_Form
      */
     function displayFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                             $size = HTML_FORM_TEXT_SIZE, $accept = '',
-                            $attr = '')
+                            $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         print HTML_Form::returnFileRow($name, $title, $maxsize,
-                                       $size, $accept, $attr);
+                                       $size, $accept, $attr, $thattr, $tdattr);
     }
 
     // }}}
@@ -1147,6 +1256,10 @@ class HTML_Form
      * @param string $text      a string to be displayed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return void
      *
      * @access public
@@ -1154,9 +1267,12 @@ class HTML_Form
      * @see HTML_Form::displayPlaintext(), HTML_Form::addPlaintext(),
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
-    function displayPlaintextRow($title, $text = '&nbsp;', $attr = '')
+    function displayPlaintextRow($title, $text = '&nbsp;', $attr = '',
+                                 $thattr = 'align="right valign="top""',
+                                 $tdattr = '')
     {
-        print HTML_Form::returnPlaintextRow($title, $text, $attr);
+        print HTML_Form::returnPlaintextRow($title, $text, $attr, $thattr,
+                                            $tdattr);
     }
 
 
@@ -1205,6 +1321,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1214,11 +1334,11 @@ class HTML_Form
      */
     function returnTextRow($name, $title, $default = '',
                            $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                           $attr = '')
+                           $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnText($name, $default, $size, $maxlength,
                                       $attr);
         $str .= "  </td>\n";
@@ -1271,6 +1391,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1280,11 +1404,12 @@ class HTML_Form
      */
     function returnPasswordRow($name, $title, $default = '',
                                $size = HTML_FORM_PASSWD_SIZE,
-                               $maxlength = 0, $attr = '')
+                               $maxlength = 0, $attr = '',
+                               $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnPassword($name, $default, $size,
                                           $maxlength, $attr);
         $str .= "   repeat: ";
@@ -1333,6 +1458,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1340,11 +1469,12 @@ class HTML_Form
      * @see HTML_Form::displayCheckbox(), HTML_Form::displayCheckboxRow(),
      *      HTML_Form::returnCheckbox(), HTML_Form::addCheckbox()
      */
-    function returnCheckboxRow($name, $title, $default = false, $attr = '')
+    function returnCheckboxRow($name, $title, $default = false, $attr = '',
+                               $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnCheckbox($name, $default, $attr);
         $str .= "  </td>\n";
         $str .= " </tr>\n";
@@ -1405,6 +1535,10 @@ class HTML_Form
      * @param int    $maxlength an integer used in the 'maxlength' attribute
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1413,11 +1547,12 @@ class HTML_Form
      *      HTML_Form::returnTextareaRow(), HTML_Form::addTextarea()
      */
     function returnTextareaRow($name, $title, $default = '', $width = 40,
-                               $height = 5, $maxlength = 0, $attr = '')
+                               $height = 5, $maxlength = 0, $attr = '',
+                               $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnTextarea($name, $default, $width, $height,
                                       $maxlength, $attr);
         $str .= "  </td>\n";
@@ -1462,6 +1597,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1470,11 +1609,11 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::addSubmit()
      */
     function returnSubmitRow($name = 'submit', $title = 'Submit Changes',
-                             $attr = '')
+                             $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <td>&nbsp;</td>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnSubmit($title, $name, $attr);
         $str .= "  </td>\n";
         $str .= " </tr>\n";
@@ -1517,6 +1656,10 @@ class HTML_Form
      * @param string $title     a string that appears on the button
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1524,11 +1667,12 @@ class HTML_Form
      * @see HTML_Form::displayReset(), HTML_Form::displayResetRow(),
      *      HTML_Form::returnReset(), HTML_Form::addReset()
      */
-    function returnResetRow($title = 'Clear contents', $attr = '')
+    function returnResetRow($title = 'Clear contents', $attr = '',
+                            $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <td>&nbsp;</td>\n";
-        $str .= "  <td>\n   ";
+        $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnReset($title, $attr);
         $str .= "  </td>\n";
         $str .= " </tr>\n";
@@ -1565,19 +1709,19 @@ class HTML_Form
     function returnSelect($name, $entries, $default = '', $size = 1,
                           $blank = '', $multiple = false, $attr = '')
     {
-        if ($multiple && substr($name, -2) != "[]") {
-            $name .= "[]";
+        if ($multiple && substr($name, -2) != '[]') {
+            $name .= '[]';
         }
-        $str = "   <select name=\"$name\"";
+        $str = '   <select name="' . $name . '"';
         if ($size) {
-            $str .= " size=\"$size\"";
+            $str .= ' size="' . $size . '"';
         }
         if ($multiple) {
-            $str .= " multiple=\"multiple\"";
+            $str .= ' multiple="multiple"';
         }
         $str .= ' ' . $attr . ">\n";
         if ($blank) {
-            $str .= "    <option value=\"\">$blank</option>\n";
+            $str .= '    <option value="">' . $blank . '</option>' . "\n";
         }
 
         foreach ($entries as $val => $text) {
@@ -1592,7 +1736,7 @@ class HTML_Form
                         $str .= 'selected="selected" ';
                     }
                 }
-            $str .= "value=\"$val\">$text</option>\n";
+            $str .= 'value="' . $val . '">' . $text . "</option>\n";
         }
         $str .= "   </select>\n";
 
@@ -1619,6 +1763,10 @@ class HTML_Form
      * @param bool   $multiple  a bool saying if multiple choices are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1627,11 +1775,12 @@ class HTML_Form
      *      HTML_Form::returnSelect(), HTML_Form::addSelect()
      */
     function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
-                             $blank = '', $multiple = false, $attr = '')
+                             $blank = '', $multiple = false, $attr = '',
+                             $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n";
         $str .= HTML_Form::returnSelect($name, $entries, $default, $size,
                                         $blank, $multiple, $attr);
         $str .= "  </td>\n";
@@ -1679,6 +1828,10 @@ class HTML_Form
      * @param bool   $default   a bool indicating if item should be checked
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1688,11 +1841,11 @@ class HTML_Form
      * @since Method available since Release 1.1.0
      */
     function returnRadioRow($name, $title, $value, $default = false,
-                            $attr = '')
+                            $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         return " <tr>\n" .
-               "  <th align=\"right\">$title:</th>\n" .
-               "  <td>\n   " .
+               '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+               '  <td ' . $tdattr . ">\n   " .
                HTML_Form::returnRadio($name, $value, $default, $attr) .
                "  </td>\n" .
                " </tr>\n";
@@ -1735,6 +1888,10 @@ class HTML_Form
      *                           Can be a relative path or full URI.
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1743,11 +1900,12 @@ class HTML_Form
      *      HTML_Form::returnImage(), HTML_Form::addImage()
      * @since Method available since Release 1.1.0
      */
-    function returnImageRow($name, $title, $src, $attr = '')
+    function returnImageRow($name, $title, $src, $attr = '',
+                            $thattr = 'align="right"', $tdattr = '')
     {
         return " <tr>\n" .
-               "  <th align=\"right\">$title:</th>\n" .
-               "  <td>\n   " .
+               '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+               '  <td ' . $tdattr . ">\n   " .
                HTML_Form::returnImage($name, $src, $attr) .
                "  </td>\n" .
                " </tr>\n";
@@ -1803,7 +1961,10 @@ class HTML_Form
      * @param int    $i         the number of rows to create.  Ignored if
      *                           $title is used.
      * @param string $title     a string to be used as the label for the row
-     *
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1812,21 +1973,22 @@ class HTML_Form
      *      HTML_Form::returnBlank(), HTML_Form::addBlank()
      * @since Method available since Release 1.1.0
      */
-    function returnBlankRow($i, $title= '')
+    function returnBlankRow($i, $title= '', $thattr = 'align="right"',
+                            $tdattr = '')
     {
         if (!$title) {
             $str = '';
             for ($j = 0; $j < $i; $j++) {
                 $str .= " <tr>\n";
-                $str .= "  <th align=\"right\">&nbsp;</th>\n";
-                $str .= '  <td>' . HTML_Form::returnBlank() . "</td>\n";
+                $str .= '  <th ' . $thattr . ">&nbsp;</th>\n";
+                $str .= '  <td ' . $tdattr . '>' . HTML_Form::returnBlank() . "</td>\n";
                 $str .= " </tr>\n";
             }
             return $str;
         } else {
             return " <tr>\n" .
-                   "  <th align=\"right\">$title:</th>\n" .
-                   '  <td>' . HTML_Form::returnBlank() . "</td>\n" .
+                   '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+                   '  <td ' . $tdattr . '>' . HTML_Form::returnBlank() . "</td>\n" .
                    " </tr>\n";
         }
     }
@@ -1881,6 +2043,10 @@ class HTML_Form
      * @param string $accept    a string saying which MIME types are allowed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -1891,11 +2057,12 @@ class HTML_Form
      */
     function returnFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                            $size = HTML_FORM_TEXT_SIZE,
-                           $accept = '', $attr = '')
+                           $accept = '', $attr = '', $thattr = 'align="right"',
+                           $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n";
         $str .= HTML_Form::returnFile($name, $maxsize, $size, $accept,
                                       $attr);
         $str .= "  </td>\n";
@@ -2004,7 +2171,8 @@ class HTML_Form
             }
             $fields[$data[1]] = true;
         }
-        $ret = HTML_Form::returnHidden("_fields", implode(":", array_keys($fields)));
+        $ret = HTML_Form::returnHidden('_fields',
+                                       implode(':', array_keys($fields)));
         $ret .= "</form>\n\n";
         return $ret;
     }
@@ -2039,6 +2207,10 @@ class HTML_Form
      * @param string $text      a string to be displayed
      * @param string $attr      a string of additional attributes to be put
      *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
      * @return string
      *
      * @access public
@@ -2046,11 +2218,13 @@ class HTML_Form
      * @see HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
      *      HTML_Form::returnPlaintext(), HTML_Form::addPlaintext()
      */
-    function returnPlaintextRow($title, $text = '&nbsp;', $attr = '')
+    function returnPlaintextRow($title, $text = '&nbsp;', $attr = '',
+                                $thattr = 'align="right" valign="top"',
+                                $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\" valign=\"top\">$title:</th>\n";
-        $str .= "  <td>\n  ";
+        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n  ";
         $str .= HTML_Form::returnPlaintext($text) . "\n";
         $str .= "  </td>\n";
         $str .= " </tr>\n";
@@ -2064,6 +2238,9 @@ class HTML_Form
     /**
      * Prints a complete form with all fields you specified via
      * the add*() methods
+     *
+     * If the $_GET/$_POST supreglobal don't exist, then
+     * $HTTP_GET_VARS/$HTTP_POST_VARS is used.
      *
      * NOTE: can NOT be called statically.
      *
@@ -2091,66 +2268,72 @@ class HTML_Form
         reset($this->fields);
         $hidden = array();
         foreach ($this->fields as $i => $data) {
+            /*
+             * $params = the number of arguments the add*() methods have
+             * $defind = the number of them that have default values 
+             */
             switch ($data[0]) {
-                case "hidden":
+                case 'hidden':
                     $hidden[] = $i;
                     $defind = 1;
                     continue 2;
-                case "reset":
-                    $params = 2;
-                    $defind = 2;
-                    break;
-                case "submit":
-                    $params = 3;
-                    $defind = 3;
-                    break;
-                case "blank":
-                    $params = 2;
-                    $defind = 1;
-                    break;
-                case "image":
+                case 'reset':
                     $params = 4;
-                    $defind = 1;
-                    break;
-                case "checkbox":
-                    $params = 4;
-                    $defind = 2;
-                    break;
-                case "file":  //new
-                case "text":
-                    $params = 6;
                     $defind = 4;
                     break;
-                case "password":
-                    $params = 6;
-                    $defind = 3;
-                    break;
-                case "radio":
+                case 'submit':
                     $params = 5;
-                    $defind = 2;
+                    $defind = 5;
                     break;
-                case "textarea":
-                    $params = 7;
+                case 'blank':
+                    $params = 4;
+                    $defind = 3;
+                    break;
+                case 'image':
+                    $params = 6;
+                    $defind = 3;
+                    break;
+                case 'checkbox':
+                    $params = 6;
                     $defind = 4;
                     break;
-                case "select":
+                case 'file':
+                case 'text':
+                    $params = 8;
+                    $defind = 6;
+                    break;
+                case 'password':
                     $params = 8;
                     $defind = 5;
                     break;
-                case "plaintext":
-                    $params = 3;
-                    $defind = 2;
+                case 'radio':
+                    $params = 7;
+                    $defind = 4;
+                    break;
+                case 'textarea':
+                    $params = 9;
+                    $defind = 6;
+                    break;
+                case 'select':
+                    $params = 10;
+                    $defind = 7;
+                    break;
+                case 'plaintext':
+                    $params = 5;
+                    $defind = 4;
                     break;
                 default:
                     // unknown field type
                     continue 2;
             }
-            $str = '$this->display'.ucfirst($data[0])."Row(";
-            for ($i = 1;$i <= $params;$i++) {
-                if ($i == $defind && $data[$defind] === null && isset($arr[$data[1]])) {
-                    $str .= "\$arr['$data[1]']";
+            $str = '$this->display' . ucfirst($data[0]) . 'Row(';
+            for ($i = 1; $i <= $params; $i++) {
+                if ($i == $defind && $data[$defind] === null &&
+                    isset($arr[$data[1]]))
+                {
+                    $str .= '$arr[\'' . $data[1] . '\']';
                 } else {
-                    $str .= '$'."data[$i]";
+                    $str .= '$data[' . $i . ']';
                 }
                 if ($i < $params) $str .= ', ';
             }
@@ -2158,7 +2341,7 @@ class HTML_Form
             eval($str);
         }
         print "</table>\n";
-        for ($i = 0;$i < sizeof($hidden);$i++) {
+        for ($i = 0; $i < sizeof($hidden); $i++) {
             $this->displayHidden($this->fields[$hidden[$i]][1],
                                  $this->fields[$hidden[$i]][2],
                                  $this->fields[$hidden[$i]][3]);
