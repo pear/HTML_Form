@@ -517,8 +517,6 @@ class HTML_Form
      *
      * @param string $title     the string used as the label
      * @param string $text      a string to be displayed
-     * @param string $attr      a string of additional attributes to be put
-     *                           in the element (example: 'id="foo"')
      * @param string $thattr    a string of additional attributes to be put
      *                           in the <th> element (example: 'class="foo"')
      * @param string $tdattr    a string of additional attributes to be put
@@ -530,11 +528,10 @@ class HTML_Form
      *      HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
-    function addPlaintext($title, $text = '&nbsp;', $attr = '',
-                          $thattr = 'align="right"', $tdattr = '')
+    function addPlaintext($title, $text = '&nbsp;',
+                          $thattr = 'align="right" valign="top"', $tdattr = '')
     {
-        $this->fields[] = array('plaintext', $title, $text, $attr, $thattr,
-                                $tdattr);
+        $this->fields[] = array('plaintext', $title, $text, $thattr, $tdattr);
     }
 
 
@@ -1255,8 +1252,6 @@ class HTML_Form
      *
      * @param string $title     the string used as the label
      * @param string $text      a string to be displayed
-     * @param string $attr      a string of additional attributes to be put
-     *                           in the element (example: 'id="foo"')
      * @param string $thattr    a string of additional attributes to be put
      *                           in the <th> element (example: 'class="foo"')
      * @param string $tdattr    a string of additional attributes to be put
@@ -1268,12 +1263,11 @@ class HTML_Form
      * @see HTML_Form::displayPlaintext(), HTML_Form::addPlaintext(),
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
-    function displayPlaintextRow($title, $text = '&nbsp;', $attr = '',
+    function displayPlaintextRow($title, $text = '&nbsp;',
                                  $thattr = 'align="right valign="top""',
                                  $tdattr = '')
     {
-        print HTML_Form::returnPlaintextRow($title, $text, $attr, $thattr,
-                                            $tdattr);
+        print HTML_Form::returnPlaintextRow($title, $text, $thattr, $tdattr);
     }
 
 
@@ -1338,7 +1332,7 @@ class HTML_Form
                            $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnText($name, $default, $size, $maxlength,
                                       $attr);
@@ -1410,7 +1404,7 @@ class HTML_Form
                                $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnPassword($name, $default, $size,
                                           $maxlength, $attr);
@@ -1475,7 +1469,7 @@ class HTML_Form
                                $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnCheckbox($name, $default, $attr);
         $str .= "  </td>\n";
@@ -1553,7 +1547,7 @@ class HTML_Form
                                $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnTextarea($name, $default, $width, $height,
                                       $maxlength, $attr);
@@ -1781,7 +1775,7 @@ class HTML_Form
                              $thattr = 'align="right"', $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n";
         $str .= HTML_Form::returnSelect($name, $entries, $default, $size,
                                         $blank, $multiple, $attr);
@@ -1846,7 +1840,7 @@ class HTML_Form
                             $attr = '', $thattr = 'align="right"', $tdattr = '')
     {
         return " <tr>\n" .
-               '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+               '  <th ' . $thattr . '>' . $title . "</th>\n" .
                '  <td ' . $tdattr . ">\n   " .
                HTML_Form::returnRadio($name, $value, $default, $attr) .
                "  </td>\n" .
@@ -1906,7 +1900,7 @@ class HTML_Form
                             $thattr = 'align="right"', $tdattr = '')
     {
         return " <tr>\n" .
-               '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+               '  <th ' . $thattr . '>' . $title . "</th>\n" .
                '  <td ' . $tdattr . ">\n   " .
                HTML_Form::returnImage($name, $src, $attr) .
                "  </td>\n" .
@@ -1989,7 +1983,7 @@ class HTML_Form
             return $str;
         } else {
             return " <tr>\n" .
-                   '  <th ' . $thattr . '>' . $title . ":</th>\n" .
+                   '  <th ' . $thattr . '>' . $title . "</th>\n" .
                    '  <td ' . $tdattr . '>' . HTML_Form::returnBlank() . "</td>\n" .
                    " </tr>\n";
         }
@@ -2063,7 +2057,7 @@ class HTML_Form
                            $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n";
         $str .= HTML_Form::returnFile($name, $maxsize, $size, $accept,
                                       $attr);
@@ -2207,8 +2201,6 @@ class HTML_Form
      *
      * @param string $title     the string used as the label
      * @param string $text      a string to be displayed
-     * @param string $attr      a string of additional attributes to be put
-     *                           in the element (example: 'id="foo"')
      * @param string $thattr    a string of additional attributes to be put
      *                           in the <th> element (example: 'class="foo"')
      * @param string $tdattr    a string of additional attributes to be put
@@ -2220,12 +2212,12 @@ class HTML_Form
      * @see HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
      *      HTML_Form::returnPlaintext(), HTML_Form::addPlaintext()
      */
-    function returnPlaintextRow($title, $text = '&nbsp;', $attr = '',
+    function returnPlaintextRow($title, $text = '&nbsp;',
                                 $thattr = 'align="right" valign="top"',
                                 $tdattr = '')
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . '>' . $title . ":</th>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
         $str .= '  <td ' . $tdattr . ">\n  ";
         $str .= HTML_Form::returnPlaintext($text) . "\n";
         $str .= "  </td>\n";
@@ -2331,8 +2323,8 @@ class HTML_Form
                     $defind = 7;
                     break;
                 case 'plaintext':
-                    $params = 5;
-                    $defind = 4;
+                    $params = 4;
+                    $defind = 3;
                     break;
                 default:
                     // unknown field type

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.12 2004-06-15 18:27:30 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.13 2004-06-15 19:24:57 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -31,7 +31,11 @@ This package has been superceded by HTML_QuickForm.
     <notes><![CDATA[
 * Add $attr, $caption and $capattr parameters to dislpay().
 
-* Improve docblocks for *passwordRow() methods.
+* Remove $attr from *PlaintextRow() methods.
+
+* Remove ":" from all $title cells to improve flexibility.
+
+* Improve docblocks for *PasswordRow() methods.
       ]]>
     </notes>
     <filelist>
