@@ -1699,7 +1699,7 @@ class HTML_Form
                              $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
+        $str .= '  <th ' . $thattr . ">&nbsp;</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnSubmit($title, $name, $attr);
         $str .= "  </td>\n";
@@ -1759,7 +1759,7 @@ class HTML_Form
                             $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
-        $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
+        $str .= '  <th ' . $thattr . ">&nbsp;</th>\n";
         $str .= '  <td ' . $tdattr . ">\n   ";
         $str .= HTML_Form::returnReset($title, $attr);
         $str .= "  </td>\n";

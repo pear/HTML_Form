@@ -779,14 +779,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="submit" name="nm" value="Ttl" />
 ------------ RETURN ROW
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
@@ -795,7 +795,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="submit" name="nm" value="Ttl" />
   </td>
@@ -811,14 +811,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="submit" name="nm" value="Ttl" id="i"/>
 ------------ RETURN ROW
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="submit" name="nm" value="Ttl" id="i"/>
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="submit" name="nm" value="Ttl" id="i"/>
   </td>
@@ -827,7 +827,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="submit" name="nm" value="Ttl" id="i"/>
   </td>
@@ -843,14 +843,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="reset" value="Ttl" />
 ------------ RETURN ROW
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="reset" value="Ttl" />
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="reset" value="Ttl" />
   </td>
@@ -859,7 +859,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th align="right" valign="top">&nbsp;</td>
+  <th align="right" valign="top">&nbsp;</th>
   <td >
    <input type="reset" value="Ttl" />
   </td>
@@ -875,14 +875,14 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <input type="reset" value="Ttl" id="i"/>
 ------------ RETURN ROW
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="reset" value="Ttl" id="i"/>
   </td>
  </tr>
 ------------ DISPLAY ROW
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="reset" value="Ttl" id="i"/>
   </td>
@@ -891,7 +891,7 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 <form action="test.php" method="get" >
 <table >
  <tr>
-  <th class="h">&nbsp;</td>
+  <th class="h">&nbsp;</th>
   <td class="d">
    <input type="reset" value="Ttl" id="i"/>
   </td>
