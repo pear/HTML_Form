@@ -296,6 +296,40 @@ $form->display();
 $form->fields = array();
 
 
+$entries = array(
+    '' => 'empty',
+    0  => 'zero',
+    1  => 'one',
+);
+echo "============ SELECT DEFAULTS, ASSOC ARRAY, DEFAULT 0 ============\n";
+echo "------------ RETURN\n";
+echo $form->returnSelect('nm', $entries, 0);
+echo "------------ DISPLAY DIRECT\n";
+$form->displaySelect('nm', $entries, 0);
+echo "------------ RETURN ROW\n";
+echo $form->returnSelectRow('nm', 'Ttl', $entries, 0);
+echo "------------ DISPLAY ROW\n";
+$form->displaySelectRow('nm', 'Ttl', $entries, 0);
+echo "------------ DISPLAY ADD\n";
+$form->addSelect('nm', 'Ttl', $entries, 0);
+$form->display();
+$form->fields = array();
+
+echo "============ SELECT DEFAULTS, ASSOC ARRAY, DEFAULT '' ============\n";
+echo "------------ RETURN\n";
+echo $form->returnSelect('nm', $entries, '');
+echo "------------ DISPLAY DIRECT\n";
+$form->displaySelect('nm', $entries, '');
+echo "------------ RETURN ROW\n";
+echo $form->returnSelectRow('nm', 'Ttl', $entries, '');
+echo "------------ DISPLAY ROW\n";
+$form->displaySelectRow('nm', 'Ttl', $entries, '');
+echo "------------ DISPLAY ADD\n";
+$form->addSelect('nm', 'Ttl', $entries, '');
+$form->display();
+$form->fields = array();
+
+
 echo "============ RADIO DEFAULTS ============\n";
 echo "------------ RETURN\n";
 echo $form->returnRadio('nm', 'v');
@@ -1005,6 +1039,110 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
     <option value="">pick</option>
     <option value="a">first</option>
     <option selected="selected" value="v">second</option>
+   </select>
+  </td>
+ </tr>
+</table>
+<input type="hidden" name="_fields" value="nm" />
+</form>
+
+============ SELECT DEFAULTS, ASSOC ARRAY, DEFAULT 0 ============
+------------ RETURN
+   <select name="nm" size="1" >
+    <option value="">empty</option>
+    <option selected="selected" value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+------------ DISPLAY DIRECT
+   <select name="nm" size="1" >
+    <option value="">empty</option>
+    <option selected="selected" value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+------------ RETURN ROW
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option value="">empty</option>
+    <option selected="selected" value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+  </td>
+ </tr>
+------------ DISPLAY ROW
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option value="">empty</option>
+    <option selected="selected" value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+  </td>
+ </tr>
+------------ DISPLAY ADD
+<form action="test.php" method="get" >
+<table >
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option value="">empty</option>
+    <option selected="selected" value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+  </td>
+ </tr>
+</table>
+<input type="hidden" name="_fields" value="nm" />
+</form>
+
+============ SELECT DEFAULTS, ASSOC ARRAY, DEFAULT '' ============
+------------ RETURN
+   <select name="nm" size="1" >
+    <option selected="selected" value="">empty</option>
+    <option value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+------------ DISPLAY DIRECT
+   <select name="nm" size="1" >
+    <option selected="selected" value="">empty</option>
+    <option value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+------------ RETURN ROW
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option selected="selected" value="">empty</option>
+    <option value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+  </td>
+ </tr>
+------------ DISPLAY ROW
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option selected="selected" value="">empty</option>
+    <option value="0">zero</option>
+    <option value="1">one</option>
+   </select>
+  </td>
+ </tr>
+------------ DISPLAY ADD
+<form action="test.php" method="get" >
+<table >
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <select name="nm" size="1" >
+    <option selected="selected" value="">empty</option>
+    <option value="0">zero</option>
+    <option value="1">one</option>
    </select>
   </td>
  </tr>

@@ -1,4 +1,5 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -17,7 +18,7 @@
  * @author     Stig Bakken <ssb@fast.no>
  * @author     Urs Gehrig <urs@circle.ch>
  * @author     Daniel Convissor <danielc@php.net>
- * @copyright  1997-2004 The PHP Group
+ * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License
  * @version    $Id$
  * @link       http://pear.php.net/package/HTML_Form
@@ -228,7 +229,7 @@ class HTML_Form
      *      HTML_Form::displayText(), HTML_Form::displayTextRow(),
      *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
-    function addText($name, $title, $default = '',
+    function addText($name, $title, $default = null,
                      $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                      $attr = '', $thattr = HTML_FORM_TH_ATTR,
                      $tdattr = HTML_FORM_TD_ATTR)
@@ -261,7 +262,7 @@ class HTML_Form
      *      HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
      *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
-    function addPassword($name, $title, $default = '',
+    function addPassword($name, $title, $default = null,
                          $size = HTML_FORM_PASSWD_SIZE,
                          $maxlength = 0, $attr = '', $thattr = HTML_FORM_TH_ATTR,
                          $tdattr = HTML_FORM_TD_ATTR)
@@ -327,7 +328,7 @@ class HTML_Form
      *      HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
      *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
-    function addTextarea($name, $title, $default = '',
+    function addTextarea($name, $title, $default = null,
                          $width = HTML_FORM_TEXTAREA_WT,
                          $height = HTML_FORM_TEXTAREA_HT, $maxlength = 0,
                          $attr = '', $thattr = HTML_FORM_TH_ATTR,
@@ -426,7 +427,7 @@ class HTML_Form
      *      HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
      *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
-    function addSelect($name, $title, $entries, $default = '', $size = 1,
+    function addSelect($name, $title, $entries, $default = null, $size = 1,
                        $blank = '', $multiple = false, $attr = '',
                        $thattr = HTML_FORM_TH_ATTR,
                        $tdattr = HTML_FORM_TD_ATTR)
@@ -667,7 +668,7 @@ class HTML_Form
      * @see HTML_Form::displayTextRow(), HTML_Form::addText(),
      *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
-    function displayText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
+    function displayText($name, $default = null, $size = HTML_FORM_TEXT_SIZE,
                          $maxlength = 0, $attr = '')
     {
         print HTML_Form::returnText($name, $default, $size, $maxlength, $attr);
@@ -697,7 +698,7 @@ class HTML_Form
      * @see HTML_Form::displayText(), HTML_Form::addText(),
      *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
-    function displayTextRow($name, $title, $default = '',
+    function displayTextRow($name, $title, $default = null,
                             $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                             $attr = '', $thattr = HTML_FORM_TH_ATTR,
                             $tdattr = HTML_FORM_TD_ATTR)
@@ -725,7 +726,7 @@ class HTML_Form
      * @see HTML_Form::displayPasswordRow(), HTML_Form::addPassword(),
      *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
-    function displayPassword($name, $default = '',
+    function displayPassword($name, $default = null,
                              $size = HTML_FORM_PASSWD_SIZE,
                              $maxlength = 0, $attr = '')
     {
@@ -758,7 +759,7 @@ class HTML_Form
      * @see HTML_Form::displayPassword(), HTML_Form::addPassword(),
      *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
-    function displayPasswordRow($name, $title, $default = '',
+    function displayPasswordRow($name, $title, $default = null,
                                 $size = HTML_FORM_PASSWD_SIZE,
                                 $maxlength = 0, $attr = '',
                                 $thattr = HTML_FORM_TH_ATTR,
@@ -843,7 +844,7 @@ class HTML_Form
      * @see HTML_Form::displayTextareaRow(), HTML_Form::addTextarea(),
      *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
-    function displayTextarea($name, $default = '', $width = 40,
+    function displayTextarea($name, $default = null, $width = 40,
                              $height = 5, $maxlength  = '', $attr = '')
     {
         print HTML_Form::returnTextarea($name, $default, $width, $height,
@@ -877,7 +878,7 @@ class HTML_Form
      * @see HTML_Form::displayTextareaRow(), HTML_Form::addTextarea(),
      *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
-    function displayTextareaRow($name, $title, $default = '', $width = 40,
+    function displayTextareaRow($name, $title, $default = null, $width = 40,
                                 $height = 5, $maxlength = 0, $attr = '',
                                 $thattr = HTML_FORM_TH_ATTR,
                                 $tdattr = HTML_FORM_TD_ATTR)
@@ -1018,7 +1019,7 @@ class HTML_Form
      * @see HTML_Form::displaySelectRow(), HTML_Form::addSelect(),
      *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
-    function displaySelect($name, $entries, $default = '', $size = 1,
+    function displaySelect($name, $entries, $default = null, $size = 1,
                            $blank = '', $multiple = false, $attr = '')
     {
         print HTML_Form::returnSelect($name, $entries, $default, $size,
@@ -1056,7 +1057,7 @@ class HTML_Form
      * @see HTML_Form::displaySelect(), HTML_Form::addSelect(),
      *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
-    function displaySelectRow($name, $title, $entries, $default = '',
+    function displaySelectRow($name, $title, $entries, $default = null,
                               $size = 1, $blank = '', $multiple = false,
                               $attr = '', $thattr = HTML_FORM_TH_ATTR,
                               $tdattr = HTML_FORM_TD_ATTR)
@@ -1375,7 +1376,7 @@ class HTML_Form
      * @see HTML_Form::displayText(), HTML_Form::displayTextRow(),
      *      HTML_Form::returnTextRow(), HTML_Form::addText()
      */
-    function returnText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
+    function returnText($name, $default = null, $size = HTML_FORM_TEXT_SIZE,
                         $maxlength = 0, $attr = '')
     {
         $str  = '<input type="text" name="' . $name . '" ';
@@ -1410,7 +1411,7 @@ class HTML_Form
      * @see HTML_Form::displayText(), HTML_Form::displayTextRow(),
      *      HTML_Form::returnText(), HTML_Form::addText()
      */
-    function returnTextRow($name, $title, $default = '',
+    function returnTextRow($name, $title, $default = null,
                            $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                            $attr = '', $thattr = HTML_FORM_TH_ATTR,
                            $tdattr = HTML_FORM_TD_ATTR)
@@ -1445,7 +1446,7 @@ class HTML_Form
      * @see HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
      *      HTML_Form::returnPasswordRow(), HTML_Form::addPassword()
      */
-    function returnPassword($name, $default = '',
+    function returnPassword($name, $default = null,
                             $size = HTML_FORM_PASSWD_SIZE,
                             $maxlength = 0, $attr = '')
     {
@@ -1482,7 +1483,7 @@ class HTML_Form
      * @see HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
      *      HTML_Form::returnPassword(), HTML_Form::addPassword()
      */
-    function returnPasswordRow($name, $title, $default = '',
+    function returnPasswordRow($name, $title, $default = null,
                                $size = HTML_FORM_PASSWD_SIZE,
                                $maxlength = 0, $attr = '',
                                $thattr = HTML_FORM_TH_ATTR,
@@ -1586,7 +1587,7 @@ class HTML_Form
      * @see HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
      *      HTML_Form::returnTextareaRow(), HTML_Form::addTextarea()
      */
-    function returnTextarea($name, $default = '', $width = 40, $height = 5,
+    function returnTextarea($name, $default = null, $width = 40, $height = 5,
                             $maxlength = 0, $attr = '')
     {
         $str  = '<textarea name="' . $name . '" cols="' . $width . '"';
@@ -1628,7 +1629,7 @@ class HTML_Form
      * @see HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
      *      HTML_Form::returnTextareaRow(), HTML_Form::addTextarea()
      */
-    function returnTextareaRow($name, $title, $default = '', $width = 40,
+    function returnTextareaRow($name, $title, $default = null, $width = 40,
                                $height = 5, $maxlength = 0, $attr = '',
                                $thattr = HTML_FORM_TH_ATTR,
                                $tdattr = HTML_FORM_TD_ATTR)
@@ -1791,7 +1792,7 @@ class HTML_Form
      * @see HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
      *      HTML_Form::returnSelectRow(), HTML_Form::addSelect()
      */
-    function returnSelect($name, $entries, $default = '', $size = 1,
+    function returnSelect($name, $entries, $default = null, $size = 1,
                           $blank = '', $multiple = false, $attr = '')
     {
         if ($multiple && substr($name, -2) != '[]') {
@@ -1811,13 +1812,13 @@ class HTML_Form
 
         foreach ($entries as $val => $text) {
             $str .= '    <option ';
-                if ($default) {
+                if (!is_null($default)) {
                     if ($multiple && is_array($default)) {
                         if ((is_string(key($default)) && $default[$val]) ||
                             (is_int(key($default)) && in_array($val, $default))) {
                             $str .= 'selected="selected" ';
                         }
-                    } elseif ($default == $val) {
+                    } elseif ($default === $val) {
                         $str .= 'selected="selected" ';
                     }
                 }
@@ -1859,7 +1860,7 @@ class HTML_Form
      * @see HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
      *      HTML_Form::returnSelect(), HTML_Form::addSelect()
      */
-    function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
+    function returnSelectRow($name, $title, $entries, $default = null, $size = 1,
                              $blank = '', $multiple = false, $attr = '',
                              $thattr = HTML_FORM_TH_ATTR,
                              $tdattr = HTML_FORM_TD_ATTR)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.18 2004-10-23 15:28:17 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.19 2005-01-11 02:45:20 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -25,11 +25,12 @@ This package has been superceded by HTML_QuickForm.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <state>stable</state>
-    <date>2004-10-23</date>
+    <date>2005-01-11</date>
     <notes><![CDATA[
-* Go stable.
+* Change default value of $default parameters to NULL.
+* Allow 0 or '' be default values in *Select() methods.  Bug 2645.
       ]]>
     </notes>
     <filelist>
@@ -44,7 +45,18 @@ This package has been superceded by HTML_QuickForm.
       <dep type="php" rel="ge" version="4.0.0" />
     </deps>
   </release>
+
   <changelog>
+    <release>
+      <version>1.1.0</version>
+      <state>stable</state>
+      <date>2004-10-23</date>
+      <notes><![CDATA[
+* Go stable.
+        ]]>
+      </notes>
+    </release>
+
     <release>
       <version>1.1.0RC4</version>
       <state>beta</state>
