@@ -666,7 +666,8 @@ class HTML_Form
     // {{{ displayPasswordRow()
 
     /**
-     * Prints a password input inside a table row
+     * Prints a combined password input and password
+     * confirmation input inside a table row
      *
      * @param string $name      the string used in the 'name' attribute
      * @param string $title     the string used as the label
@@ -1382,7 +1383,8 @@ class HTML_Form
     // {{{ returnPasswordRow()
 
     /**
-     * Produce a string containing a password input inside a table row
+     * Produce a string containing a combined password input and password
+     * confirmation input inside a table row
      *
      * @param string $name      the string used in the 'name' attribute
      * @param string $title     the string used as the label
