@@ -442,6 +442,10 @@ class HTML_Form
     /**
      * Adds a select list to the list of fields to be processed by display()
      *
+     * NOTE:  In order for defaults to be automatically selected in the
+     * output, the PHP data types of the $default must match the data types
+     * of the keys in the $entries array.
+     *
      * @param string $name      the string used in the 'name' attribute
      * @param string $title     the string used as the label
      * @param array  $entries   an array containing the <options> to be listed.
@@ -1077,6 +1081,10 @@ class HTML_Form
     /**
      * Prints a select list
      *
+     * NOTE:  In order for defaults to be automatically selected in the
+     * output, the PHP data types of the $default must match the data types
+     * of the keys in the $entries array.
+     *
      * @param string $name      the string used in the 'name' attribute
      * @param array  $entries   an array containing the <options> to be listed.
      *                           The array's keys become the option values and
@@ -1109,6 +1117,10 @@ class HTML_Form
 
     /**
      * Prints a select list inside a table row
+     *
+     * NOTE:  In order for defaults to be automatically selected in the
+     * output, the PHP data types of the $default must match the data types
+     * of the keys in the $entries array.
      *
      * @param string $name      the string used in the 'name' attribute
      * @param string $title     the string used as the label
@@ -1892,6 +1904,10 @@ class HTML_Form
     /**
      * Produce a string containing a select list
      *
+     * NOTE:  In order for defaults to be automatically selected in the
+     * output, the PHP data types of the $default must match the data types
+     * of the keys in the $entries array.
+     *
      * @param string $name      the string used in the 'name' attribute
      * @param array  $entries   an array containing the <options> to be listed.
      *                           The array's keys become the option values and
@@ -1954,6 +1970,10 @@ class HTML_Form
 
     /**
      * Produce a string containing a select list inside a table row
+     *
+     * NOTE:  In order for defaults to be automatically selected in the
+     * output, the PHP data types of the $default must match the data types
+     * of the keys in the $entries array.
      *
      * @param string $name      the string used in the 'name' attribute
      * @param string $title     the string used as the label
