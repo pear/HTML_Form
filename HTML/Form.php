@@ -1,5 +1,5 @@
 <?php
-//
+
 // +----------------------------------------------------------------------+
 // | PHP version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -15,12 +15,18 @@
 // +----------------------------------------------------------------------+
 // | Authors: Stig Bakken <ssb@fast.no>                                   |
 // |          Urs Gehrig <urs@circle.ch>                                  |
+// |          Daniel Convissor <danielc@php.net>                          |
 // +----------------------------------------------------------------------+
 //
 // $Id$
 //
 // HTML form utility functions.
-//
+
+
+// TODO
+// * add $class parameter/tag for add*() and *Row() methods which will
+//       then get inserted into the <th> and <td> tags.
+
 
 if (!defined('HTML_FORM_TEXT_SIZE')) {
     define('HTML_FORM_TEXT_SIZE', 20);
@@ -32,6 +38,14 @@ if (!defined('HTML_FORM_MAX_FILE_SIZE')) {
 
 if (!defined('HTML_FORM_PASSWD_SIZE')) {
     define('HTML_FORM_PASSWD_SIZE', 8);
+}
+
+if (!defined('HTML_FORM_TEXTAREA_WT')) {
+    define('HTML_FORM_TEXTAREA_WT', 40);
+}
+
+if (!defined('HTML_FORM_TEXTAREA_HT')) {
+    define('HTML_FORM_TEXTAREA_HT', 5);
 }
 
 class HTML_Form
@@ -59,11 +73,18 @@ class HTML_Form
     /** ENCTYPE attribute of <form> tag */
     var $enctype;
 
-    // }}}
+    /**
+     * additional attributes for <form> tag
+     *
+     * @since Property available since Release 1.1.0
+     */
+    var $attr;
 
+    // }}}
     // {{{ constructor
 
-    function HTML_Form($action, $method = 'get', $name = '', $target = '', $enctype = '')
+    function HTML_Form($action, $method = 'get', $name = '', $target = '',
+                       $enctype = '', $attr = '')
     {
         $this->action = $action;
         $this->method = $method;
@@ -71,320 +92,388 @@ class HTML_Form
         $this->fields = array();
         $this->target = $target;
         $this->enctype = $enctype;
+        $this->attr = $attr;
     }
 
-    // }}}
 
+    // ===========  ADD  ===========
+
+    // }}}
     // {{{ addText()
 
     function addText($name, $title, $default = '',
-                     $size = HTML_FORM_TEXT_SIZE, $maxlength = '')
+                     $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                     $attr = '')
     {
-        $this->fields[] = array("text", $name, $title, $default, $size, $maxlength);
+        $this->fields[] = array('text', $name, $title, $default, $size,
+                                $maxlength, $attr);
     }
 
     // }}}
     // {{{ addPassword()
 
-    function addPassword($name, $title, $default, $size = HTML_FORM_PASSWD_SIZE)
+    function addPassword($name, $title, $default = '',
+                         $size = HTML_FORM_PASSWD_SIZE,
+                         $maxlength = '', $attr = '')
     {
-        $this->fields[] = array("password", $name, $title, $default, $size);
+        $this->fields[] = array('password', $name, $title, $default, $size,
+                                $maxlength, $attr);
     }
 
     // }}}
     // {{{ addCheckbox()
 
-    function addCheckbox($name, $title, $default)
+    function addCheckbox($name, $title, $default = false, $attr = '')
     {
-        $this->fields[] = array("checkbox", $name, $title, $default);
+        $this->fields[] = array('checkbox', $name, $title, $default, $attr);
     }
 
     // }}}
     // {{{ addTextarea()
 
-    function addTextarea($name, $title, $default,
+    function addTextarea($name, $title, $default = '',
                          $width = HTML_FORM_TEXTAREA_WT,
-                         $height = HTML_FORM_TEXTAREA_HT, $maxlength = '')
+                         $height = HTML_FORM_TEXTAREA_HT, $maxlength = '',
+                         $attr = '')
     {
-        $this->fields[] = array("textarea", $name, $title, $default, $width, $height, $maxlength);
+        $this->fields[] = array('textarea', $name, $title, $default, $width,
+                                $height, $maxlength, $attr);
     }
 
     // }}}
     // {{{ addSubmit()
 
-    function addSubmit($name = "submit", $title = "Submit Changes")
+    function addSubmit($name = 'submit', $title = 'Submit Changes',
+                       $attr = '')
     {
-        $this->fields[] = array("submit", $name, $title);
+        $this->fields[] = array('submit', $name, $title, $attr);
     }
 
     // }}}
     // {{{ addReset()
 
-    function addReset($title = "Discard Changes")
+    /**
+     * Adds a reset button to the list of fields to be processed by display()
+     *
+     * NOTE: Unusual parameter order.
+     */
+    function addReset($title = 'Discard Changes', $attr = '')
     {
-        $this->fields[] = array("reset", $title);
+        $this->fields[] = array('reset', $title, $attr);
     }
 
     // }}}
     // {{{ addSelect()
 
     function addSelect($name, $title, $entries, $default = '', $size = 1,
-                       $blank = '', $multiple = false, $attribs = '')
+                       $blank = '', $multiple = false, $attr = '')
     {
-        $this->fields[] = array("select", $name, $title, $entries, $default,
-                                $size, $blank, $multiple, $attribs);
+        $this->fields[] = array('select', $name, $title, $entries, $default,
+                                $size, $blank, $multiple, $attr);
     }
 
     // }}}
     // {{{ addRadio()
 
-    function addRadio($name, $title, $value, $default = false)
+    function addRadio($name, $title, $value, $default = false, $attr = '')
     {
-        $this->fields[] = array("radio", $name, $title, $value, $default);
+        $this->fields[] = array('radio', $name, $title, $value, $default,
+                                $attr);
     }
 
     // }}}
     // {{{ addImage()
 
-    function addImage($name, $src)
+    function addImage($name, $title, $src, $attr = '')
     {
-        $this->fields[] = array("image", $name, $src);
+        $this->fields[] = array('image', $name, $title, $src, $attr);
     }
 
     // }}}
     // {{{ addHidden()
 
-    function addHidden($name, $value)
+    function addHidden($name, $value, $attr = '')
     {
-        $this->fields[] = array("hidden", $name, $value);
+        $this->fields[] = array('hidden', $name, $value, $attr);
     }
 
     // }}}
     // {{{ addBlank()
 
-    function addBlank($i,$title = '')
+    function addBlank($i, $title = '')
     {
-        $this->fields[] = array("blank", $i, $title);
+        $this->fields[] = array('blank', $i, $title);
     }
 
     // }}}
     // {{{ addFile
 
     function addFile($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
-                     $size = HTML_FORM_TEXT_SIZE, $accept = '') 
+                     $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '')
     {
         $this->enctype = "multipart/form-data";
-        $this->fields[] = array("file", $name, $title, $maxsize, $size, $accept);
+        $this->fields[] = array('file', $name, $title, $maxsize, $size,
+                                $accept, $attr);
     }
 
     // }}}
     // {{{ addPlaintext()
 
-    function addPlaintext($title, $text = '&nbsp;')
+    function addPlaintext($title, $text = '&nbsp;', $attr = '')
     {
-        $this->fields[] = array("plaintext", $title, $text);
+        $this->fields[] = array('plaintext', $title, $text, $attr);
     }
+
+
+    // ===========  DISPLAY  ===========
 
     // }}}
     // {{{ start()
 
-    function start()
+    /**
+     * Prints the opening tags for the form and table
+     *
+     * NOTE: can NOT be called statically.
+     */
+    function start($multipartformdata = false)
     {
-        print "<form action=\"" . basename($this->action) . "\" method=\"$this->method\"";
-        if ($this->name) {
-            print " name=\"$this->name\"";
-        }
-        if ($this->target) {
-            print " target=\"$this->target\"";
-        }
-        if ($this->enctype) {
-            print " enctype=\"$this->enctype\"";
-        }
-        print ">\n";
+        print $this->returnStart($multipartformdata);
     }
 
     // }}}
     // {{{ end()
 
+    /**
+     * Prints the ending tags for the table and form
+     *
+     * NOTE: can NOT be called statically.
+     */
     function end()
     {
-        $fields = array();
-        reset($this->fields);
-        while (list($i, $data) = each($this->fields)) {
-            if ($data[0] == 'reset') {
-                continue;
-            }
-            $fields[$data[1]] = true;
-        }
-        $this->displayHidden("_fields", implode(":", array_keys($fields)));
-        print "</form>";
+        print $this->returnEnd();
     }
 
     // }}}
-
     // {{{ displayText()
 
+    /**
+     * @static
+     */
     function displayText($name, $default = '',
-                         $size = HTML_FORM_TEXT_SIZE, $maxlength = '')
+                         $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                         $attr = '')
     {
-        if (!$maxlength) {
-            print "<input name=\"$name\" value=\"$default\" size=\"$size\"";
-        } else {
-            print "<input name=\"$name\" value=\"$default\" size=\"$size\" maxlength=\"$maxlength\"";
-        }
-        print " />";
+        print HTML_Form::returnText($name, $default, $size, $maxlength, $attr);
     }
 
     // }}}
     // {{{ displayTextRow()
 
+    /**
+     * @static
+     */
     function displayTextRow($name, $title, $default = '',
-                            $size = HTML_FORM_TEXT_SIZE, $maxlength = '')
+                            $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                            $attr = '')
     {
-        print " <tr>\n";
-        print "  <th align=\"right\">$title</th>";
-        print "  <td>";
-        $this->displayText($name, $default, $size, $maxlength);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnTextRow($name, $title, $default, $size,
+                                       $maxlength, $attr);
     }
 
     // }}}
     // {{{ displayPassword()
 
-    function displayPassword($name, $default = '', $size = HTML_FORM_PASSWD_SIZE)
+    /**
+     * @static
+     */
+    function displayPassword($name, $default = '',
+                             $size = HTML_FORM_PASSWD_SIZE,
+                             $maxlength = '', $attr = '')
     {
-        print "<input name=\"$name\" type=\"password\" value=\"$default\" size=\"$size\" />";
+        print HTML_Form::returnPassword($name, $default, $size, $maxlength,
+                                        $attr);
     }
 
     // }}}
     // {{{ displayPasswordRow()
 
-    function displayPasswordRow($name, $title, $default = '', $size = HTML_FORM_PASSWD_SIZE)
+    /**
+     * @static
+     */
+    function displayPasswordRow($name, $title, $default = '',
+                                $size = HTML_FORM_PASSWD_SIZE,
+                                $maxlength = '', $attr = '')
     {
-        print "<tr>\n";
-        print "  <th align=\"right\">$title:</th>\n";
-        print "  <td>";
-        $this->displayPassword($name, $default, $size);
-        print " repeat: ";
-        $this->displayPassword($name."2", null, $size);
-        print "</td>\n";
-        print "</tr>\n";
+        print HTML_Form::returnPasswordRow($name, $title, $default,
+                                           $size, $maxlength, $attr);
     }
 
     // }}}
     // {{{ displayCheckbox()
 
-    function displayCheckbox($name, $default = false)
+    /**
+     * @static
+     */
+    function displayCheckbox($name, $default = false, $attr = '')
     {
-        print "<input type=\"checkbox\" name=\"$name\"";
-        if ($default && $default != 'off') {
-            print " CHECKED";
-        }
-        print " />";
+        print HTML_Form::returnCheckbox($name, $default, $attr);
     }
 
     // }}}
     // {{{ displayCheckboxRow()
 
-    function displayCheckboxRow($name, $title, $default = false)
+    /**
+     * @static
+     */
+    function displayCheckboxRow($name, $title, $default = false, $attr = '')
     {
-        print " <tr>\n";
-        print "  <th align=\"right\">$title</th>";
-        print "  <td>";
-        $this->displayCheckbox($name, $default);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnCheckboxRow($name, $title, $default, $attr);
     }
 
     // }}}
     // {{{ displayTextarea()
 
+    /**
+     * @static
+     */
     function displayTextarea($name, $default = '', $width = 40,
-                             $height = 5, $maxlength  = '')
+                             $height = 5, $maxlength  = '', $attr = '')
     {
-        if (!$maxlength) {
-            print "<textarea name=\"$name\" cols=\"$width\" rows=\"$height\"";
-        } else {
-            print "<textarea name=\"$name\" cols=\"$width\" rows=\"$height\" maxlength=\"$maxlength\"";
-        }
-        print ">";
-        print $default;
-        print "</textarea>";
+        print HTML_Form::returnTextarea($name, $default, $width, $height,
+                                        $maxlength, $attr);
     }
 
     // }}}
     // {{{ displayTextareaRow()
 
+    /**
+     * @static
+     */
     function displayTextareaRow($name, $title, $default = '', $width = 40,
-                                $height = 5, $maxlength = '')
+                                $height = 5, $maxlength = '', $attr = '')
     {
-        print " <tr>\n";
-        print "  <th align=\"right\" valign=\"top\">$title</th>\n";
-        print "  <td>";
-        $this->displayTextarea($name, $default, $width, $height, $maxlength);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnTextareaRow($name, $title, $default, $width,
+                                           $height, $maxlength, $attr);
     }
 
     // }}}
     // {{{ displaySubmit()
 
-    function displaySubmit($title = 'Submit Changes', $name = "submit")
+    /**
+     * Prints a submit button
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function displaySubmit($title = 'Submit Changes', $name = 'submit',
+                           $attr = '')
     {
-        print $this->returnSubmit($title, $name);
+        print HTML_Form::returnSubmit($title, $name, $attr);
     }
 
     // }}}
     // {{{ displaySubmitRow()
 
-    function displaySubmitRow($name = "submit", $title = 'Submit Changes')
+    /**
+     * @static
+     */
+    function displaySubmitRow($name = 'submit', $title = 'Submit Changes',
+                              $attr = '')
     {
-        print $this->returnSubmitRow($name, $title);
+        print HTML_Form::returnSubmitRow($name, $title, $attr);
     }
 
     // }}}
     // {{{ displayReset()
 
-    function displayReset($title = 'Clear contents')
+    /**
+     * Prints a reset button
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function displayReset($title = 'Clear contents', $attr = '')
     {
-        print $this->returnReset($title);
+        print HTML_Form::returnReset($title, $attr);
     }
 
     // }}}
     // {{{ displayResetRow()
 
-    function displayResetRow($title = 'Clear contents')
+    /**
+     * Prints a reset button inside a table row
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function displayResetRow($title = 'Clear contents', $attr = '')
     {
-        print $this->returnResetRow($title);
+        print HTML_Form::returnResetRow($title, $attr);
     }
 
     // }}}
     // {{{ displaySelect()
 
+    /**
+     * @static
+     */
     function displaySelect($name, $entries, $default = '', $size = 1,
-                           $blank = '', $multiple = false, $attribs = '')
+                           $blank = '', $multiple = false, $attr = '')
     {
-        print $this->returnSelect($name, $entries, $default, $size, $blank,
-                                  $multiple, $attribs);
+        print HTML_Form::returnSelect($name, $entries, $default, $size,
+                                      $blank, $multiple, $attr);
     }
 
     // }}}
     // {{{ displaySelectRow()
 
-    function displaySelectRow($name, $title, &$entries, $default = '',
-                              $size = 1, $blank = '', $multiple = false, $attribs = '')
+    /**
+     * @static
+     */
+    function displaySelectRow($name, $title, $entries, $default = '',
+                              $size = 1, $blank = '', $multiple = false,
+                              $attr = '')
     {
-        print $this->returnSelectRow($name, $title, $entries, $default, $size,
-                                     $blank, $multiple, $attribs);
+        print HTML_Form::returnSelectRow($name, $title, $entries, $default,
+                                         $size, $blank, $multiple, $attr);
+    }
+
+    // }}}
+    // {{{ displayImage()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function displayImage($name, $src, $attr = '')
+    {
+        print HTML_Form::returnImage($name, $src, $attr);
+    }
+
+    // }}}
+    // {{{ displayImageRow()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function displayImageRow($name, $title, $src, $attr = '')
+    {
+        print HTML_Form::returnImageRow($name, $title, $src, $attr);
     }
 
     // }}}
     // {{{ displayHidden()
 
-    function displayHidden($name, $value)
+    /**
+     * @static
+     */
+    function displayHidden($name, $value, $attr = '')
     {
-        print $this->returnHidden($name, $value);
+        print HTML_Form::returnHidden($name, $value, $attr);
     }
 
     // }}}
@@ -393,91 +482,82 @@ class HTML_Form
 
     // {{{ displayRadio()
 
-    function displayRadio($name, $value, $default = false)
+    /**
+     * @static
+     */
+    function displayRadio($name, $value, $default = false, $attr = '')
     {
-        if ($default == false) {
-            print "<input type='radio' name=\"$name\" value=\"$value\" />";
-        } else {
-            print "<input type='radio' name=\"$name\" checked value=\"$value\" />";
-        }
+        print HTML_Form::returnRadio($name, $value, $default, $attr);
     }
 
     // }}}
     // {{{ displayRadioRow()
 
-    function displayRadioRow($name, $title, $value, $default = false)
+    /**
+     * @static
+     */
+    function displayRadioRow($name, $title, $value, $default = false,
+                             $attr = '')
     {
-        print " <tr>\n";
-        print "<th align=\"right\">$title</th>";
-        print "  <td>";
-        $this->displayRadio($name, $value, $default);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnRadioRow($name, $title, $value, $default,
+                                        $attr);
     }
 
     // }}}
     // {{{ displayBlank()
 
+    /**
+     * @static
+     */
     function displayBlank()
     {
-        print "&nbsp;";
+        print HTML_Form::returnBlank();
     }
 
     // }}}
     // {{{ displayBlankRow()
 
+    /**
+     * @static
+     */
     function displayBlankRow($i, $title= '')
     {
-        if (!$title) {
-            for ($j = 0;$j < $i;$j++) {
-                print " <tr>\n";
-                print "  <th align=\"right\">&nbsp;</th>";
-                print "  <td>";
-                $this->displayBlank();
-                print "</td>\n";
-                print " </tr>\n";
-            }
-        } else {
-            print " <tr>\n";
-            print "  <th align=\"right\">$title</th>";
-            print "  <td>";
-            $this->displayBlank();
-            print "</td>\n";
-            print " </tr>\n";
-        }
+        print HTML_Form::returnBlankRow($i, $title);
     }
 
     // }}}
     // {{{ displayFile()
 
+    /**
+     * @static
+     */
     function displayFile($name, $maxsize = HTML_FORM_MAX_FILE_SIZE,
-                         $size = HTML_FORM_TEXT_SIZE, $accept = '')
+                         $size = HTML_FORM_TEXT_SIZE, $accept = '',
+                         $attr = '')
     {
-        print "<input type=\"file\" name=\"$name\" maxsize=\"$maxsize\" size=\"$size\"";
-        if ($accept) {
-            print " accept=\"$accept\"";
-        }
-        print "/>";
-
+        print HTML_Form::returnFile($name, $maxsize, $size, $accept, $attr);
     }
 
     // }}}
     // {{{ displayFileRow()
 
+    /**
+     * @static
+     */
     function displayFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
-                            $size = HTML_FORM_TEXT_SIZE, $accept = '')
+                            $size = HTML_FORM_TEXT_SIZE, $accept = '',
+                            $attr = '')
     {
-        print " <tr>\n";
-        print "  <th align=\"right\">$title</th>";
-        print "  <td>";
-        $this->displayFile($name, $maxsize, $size, $accept);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnFileRow($name, $title, $maxsize,
+                                       $size, $accept, $attr);
     }
 
     // }}}
     // {{{ displayPlaintext()
 
+    /**
+     * @static
+     */
     function displayPlaintext($text = '&nbsp;')
     {
         print $text;
@@ -486,35 +566,50 @@ class HTML_Form
     // }}}
     // {{{ displayPlaintextRow()
 
-    function displayPlaintextRow($title, $text = '&nbsp;')
+    /**
+     * @static
+     */
+    function displayPlaintextRow($title, $text = '&nbsp;', $attr = '')
     {
-        print " <tr>\n";
-        print "  <th align=\"right\" valign=\"top\">$title</th>";
-        print "  <td>";
-        $this->displayPlaintext($text);
-        print "</td>\n";
-        print " </tr>\n";
+        print HTML_Form::returnPlaintextRow($title, $text, $attr);
     }
 
-    // }}}
 
+    // ===========  RETURN  ===========
+
+    // }}}
     // {{{ returnText()
 
-    function returnText($name, $default = '', $size = HTML_FORM_TEXT_SIZE)
+    /**
+     * @static
+     */
+    function returnText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
+                        $maxlength = '', $attr = '')
     {
-        return "<input name=\"$name\" value=\"$default\" size=\"$size\" />";
+        $str  = '<input type="text" name="' . $name . '" ';
+        $str .= 'size="' . $size . '" value="' . $default . '" ';
+        if ($maxlength) {
+            $str .= 'maxlength="' . $maxlength. '" ';
+        }
+        return $str . $attr . "/>\n";
     }
 
     // }}}
     // {{{ returnTextRow()
 
-    function returnTextRow($name, $title, $default = '', $size = HTML_FORM_TEXT_SIZE)
+    /**
+     * @static
+     */
+    function returnTextRow($name, $title, $default = '',
+                           $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                           $attr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>";
-        $str .= "  <td>";
-        $str .= $this->returnText($name, $default, $size);
-        $str .= "</td>\n";
+        $str .= "  <th align=\"right\">$title:</th>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnText($name, $default, $size, $maxlength,
+                                      $attr);
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
@@ -523,24 +618,41 @@ class HTML_Form
     // }}}
     // {{{ returnPassword()
 
-    function returnPassword($name, $default = '', $size = HTML_FORM_PASSWD_SIZE)
+    /**
+     * @static
+     */
+    function returnPassword($name, $default = '',
+                            $size = HTML_FORM_PASSWD_SIZE,
+                            $maxlength = '', $attr = '')
     {
-        return "<input name=\"$name\" type=\"password\" value=\"$default\" size=\"$size\" />";
+        $str  = '<input type="password" name="' . $name . '" ';
+        $str .= 'size="' . $size . '" value="' . $default . '" ';
+        if ($maxlength) {
+            $str .= 'maxlength="' . $maxlength. '" ';
+        }
+        return $str . $attr . "/>\n";
     }
 
     // }}}
     // {{{ returnPasswordRow()
 
-    function returnPasswordRow($name, $title, $default = '', $size = HTML_FORM_PASSWD_SIZE)
+    /**
+     * @static
+     */
+    function returnPasswordRow($name, $title, $default = '',
+                               $size = HTML_FORM_PASSWD_SIZE,
+                               $maxlength = '', $attr = '')
     {
-        $str  = "<tr>\n";
+        $str  = " <tr>\n";
         $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>";
-        $str .= $this->returnPassword($name, $default, $size);
-        $str .= " repeat: ";
-        $str .= $this->returnPassword($name."2", $default, $size);
-        $str .= "</td>\n";
-        $str .= "</tr>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnPassword($name, $default, $size,
+                                          $maxlength, $attr);
+        $str .= "   repeat: ";
+        $str .= HTML_Form::returnPassword($name.'2', $default, $size,
+                                          $maxlength, $attr);
+        $str .= "  </td>\n";
+        $str .= " </tr>\n";
 
         return $str;
     }
@@ -548,27 +660,31 @@ class HTML_Form
     // }}}
     // {{{ returnCheckbox()
 
-    function returnCheckbox($name, $default = false)
+    /**
+     * @static
+     */
+    function returnCheckbox($name, $default = false, $attr = '')
     {
         $str = "<input type=\"checkbox\" name=\"$name\"";
-        if ($default && $default != 'off') {
-            $str .= " checked";
+        if ($default && $default !== 'off') {
+            $str .= ' checked="checked"';
         }
-        $str .= " />";
-
-        return $str;
+        return $str . ' ' . $attr . "/>\n";
     }
 
     // }}}
     // {{{ returnCheckboxRow()
 
-    function returnCheckboxRow($name, $title, $default = false)
+    /**
+     * @static
+     */
+    function returnCheckboxRow($name, $title, $default = false, $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>";
-        $str .= $this->returnCheckbox($name, $default);
-        $str .= "</td>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnCheckbox($name, $default, $attr);
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
@@ -577,11 +693,20 @@ class HTML_Form
     // }}}
     // {{{ returnTextarea()
 
-    function returnTextarea($name, $default = '', $width = 40, $height = 5)
+    /**
+     * @static
+     */
+    function returnTextarea($name, $default = '', $width = 40, $height = 5,
+                            $maxlength = '', $attr = '')
     {
-        $str  = "<textarea name=\"$name\" cols=\"$width\" rows=\"$height\">";
+        $str  = '<textarea name="' . $name . '" cols="' . $width . '"';
+        $str .= ' rows="' . $height . '" ';
+        if ($maxlength) {
+            $str .= 'maxlength="' . $maxlength. '" ';
+        }
+        $str .=  $attr . '>';
         $str .= $default;
-        $str .= "</textarea>";
+        $str .= "</textarea>\n";
 
         return $str;
     }
@@ -589,13 +714,18 @@ class HTML_Form
     // }}}
     // {{{ returnTextareaRow()
 
-    function returnTextareaRow($name, $title, $default = '', $width = 40, $height = 5)
+    /**
+     * @static
+     */
+    function returnTextareaRow($name, $title, $default = '', $width = 40,
+                               $height = 5, $maxlength = '', $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <th align=\"right\">$title:</th>\n";
-        $str .= "  <td>";
-        $str .= $this->returnTextarea($name, $default, $width, $height);
-        $str .= "</td>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnTextarea($name, $default, $width, $height,
+                                      $maxlength, $attr);
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
@@ -604,21 +734,34 @@ class HTML_Form
     // }}}
     // {{{ returnSubmit()
 
-    function returnSubmit($title = 'Submit Changes', $name = "submit")
+    /**
+     * Produces a string containing a submit button
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function returnSubmit($title = 'Submit Changes', $name = 'submit',
+                          $attr = '')
     {
-        return "<input name=\"$name\" type=\"submit\" value=\"$title\" />";
+        return '<input type="submit" name="' . $name . '"'
+               . ' value="' . $title . '" ' . $attr . "/>\n";
     }
 
     // }}}
     // {{{ returnSubmitRow()
 
-    function returnSubmitRow($name = "submit", $title = 'Submit Changes')
+    /**
+     * @static
+     */
+    function returnSubmitRow($name = 'submit', $title = 'Submit Changes',
+                             $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <td>&nbsp;</td>\n";
-        $str .= "  <td>";
-        $str .= $this->returnSubmit($title, $name);
-        $str .= "</td>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnSubmit($title, $name, $attr);
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
@@ -627,21 +770,36 @@ class HTML_Form
     // }}}
     // {{{ returnReset()
 
-    function returnReset($title = 'Clear contents')
+    /**
+     * Produces a string containing a reset button
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function returnReset($title = 'Clear contents', $attr = '')
     {
-        return "<input type=\"reset\" value=\"$title\" />";
+        return '<input type="reset"'
+               . ' value="' . $title . '" ' . $attr . "/>\n";
     }
 
     // }}}
     // {{{ returnResetRow()
 
-    function returnResetRow($title = 'Clear contents')
+    /**
+     * Produces a string containing a reset button inside a table row
+     *
+     * NOTE: Unusual parameter order.
+     *
+     * @static
+     */
+    function returnResetRow($title = 'Clear contents', $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <td>&nbsp;</td>\n";
-        $str .= "  <td>";
-        $str .= $this->returnReset($title);
-        $str .= "</td>\n";
+        $str .= "  <td>\n   ";
+        $str .= HTML_Form::returnReset($title, $attr);
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
@@ -650,8 +808,11 @@ class HTML_Form
     // }}}
     // {{{ returnSelect()
 
+    /**
+     * @static
+     */
     function returnSelect($name, $entries, $default = '', $size = 1,
-                           $blank = '', $multiple = false, $attrib = '')
+                          $blank = '', $multiple = false, $attr = '')
     {
         if ($multiple && substr($name, -2) != "[]") {
             $name .= "[]";
@@ -663,14 +824,12 @@ class HTML_Form
         if ($multiple) {
             $str .= " multiple=\"multiple\"";
         }
-        if ($attrib) {
-            $str .= " $attrib";
-        }
-        $str .= ">\n";
+        $str .= ' ' . $attr . ">\n";
         if ($blank) {
             $str .= "    <option value=\"\">$blank</option>\n";
         }
-        while (list($val, $text) = each($entries)) {
+
+        foreach ($entries as $val => $text) {
             $str .= '    <option ';
                 if ($default) {
                     if ($multiple && is_array($default)) {
@@ -692,13 +851,17 @@ class HTML_Form
     // }}}
     // {{{ returnSelectRow()
 
-    function returnSelectRow($name, $title, &$entries, $default = '', $size = 1,
-                              $blank = '', $multiple = false, $attribs = '')
+    /**
+     * @static
+     */
+    function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
+                             $blank = '', $multiple = false, $attr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title</th>\n";
+        $str .= "  <th align=\"right\">$title:</th>\n";
         $str .= "  <td>\n";
-        $str .= $this->returnSelect($name, $entries, $default, $size, $blank, $multiple, $attribs);
+        $str .= HTML_Form::returnSelect($name, $entries, $default, $size,
+                                        $blank, $multiple, $attr);
         $str .= "  </td>\n";
         $str .= " </tr>\n";
 
@@ -706,36 +869,179 @@ class HTML_Form
     }
 
     // }}}
+    // {{{ returnRadio()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnRadio($name, $value, $default = false, $attr = '')
+    {
+        return '<input type="radio" name="' . $name . '"' .
+               ' value="' . $value . '"' .
+               ($default ? ' checked="checked"' : '') .
+               ' ' . $attr . "/>\n";
+    }
+
+    // }}}
+    // {{{ returnRadioRow()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnRadioRow($name, $title, $value, $default = false,
+                            $attr = '')
+    {
+        return " <tr>\n" .
+               "  <th align=\"right\">$title:</th>\n" .
+               "  <td>\n   " .
+               HTML_Form::returnRadio($name, $value, $default, $attr) .
+               "  </td>\n" .
+               " </tr>\n";
+    }
+
+    // }}}
+    // {{{ returnImage()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnImage($name, $src, $attr = '')
+    {
+        return '<input type="image" name="' . $name . '"' .
+               ' src="' . $src . '" ' . $attr . "/>\n";
+    }
+
+    // }}}
+    // {{{ returnImageRow()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnImageRow($name, $title, $src, $attr = '')
+    {
+        return " <tr>\n" .
+               "  <th align=\"right\">$title:</th>\n" .
+               "  <td>\n   " .
+               HTML_Form::returnImage($name, $src, $attr) .
+               "  </td>\n" .
+               " </tr>\n";
+    }
+
+    // }}}
     // {{{ returnHidden()
 
-    function returnHidden($name, $value)
+    function returnHidden($name, $value, $attr = '')
     {
-        return "<input type=\"hidden\" name=\"$name\" value=\"$value\" />";
+        return '<input type="hidden" name="' . $name . '"'
+               . ' value="' . $value . '" ' . $attr . "/>\n";
+    }
+
+    // }}}
+    // {{{ returnBlank()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnBlank()
+    {
+        return '&nbsp;';
+    }
+
+    // }}}
+    // {{{ returnBlankRow()
+
+    /**
+     * @static
+     * @since Method available since Release 1.1.0
+     */
+    function returnBlankRow($i, $title= '')
+    {
+        if (!$title) {
+            $str = '';
+            for ($j = 0; $j < $i; $j++) {
+                $str .= " <tr>\n";
+                $str .= "  <th align=\"right\">&nbsp;</th>\n";
+                $str .= '  <td>' . HTML_Form::returnBlank() . "</td>\n";
+                $str .= " </tr>\n";
+            }
+            return $str;
+        } else {
+            return " <tr>\n" .
+                   "  <th align=\"right\">$title:</th>\n" .
+                   '  <td>' . HTML_Form::returnBlank() . "</td>\n" .
+                   " </tr>\n";
+        }
     }
 
     // }}}
     // {{{ returnFile()
 
+    /**
+     * @static
+     */
     function returnFile($name = 'userfile',
                         $maxsize = HTML_FORM_MAX_FILE_SIZE,
-                        $size = HTML_FORM_TEXT_SIZE)
+                        $size = HTML_FORM_TEXT_SIZE,
+                        $accept = '', $attr = '')
     {
-        $str  = " <input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$maxsize\" />";
-        $str .= " <input type=\"file\" name=\"$name\" size=\"$size\" />";
+        $str  = '   <input type="hidden" name="MAX_FILE_SIZE" value="';
+        $str .= $maxsize . "\" />\n";
+        $str .= '   <input type="file" name="' . $name . '"';
+        $str .= ' size="' . $size . '" ';
+        if ($accept) {
+            $str .= 'accept="' . $accept . '" ';
+        }
+        return $str . $attr . "/>\n";
+    }
+
+    // }}}
+    // {{{ returnFileRow()
+
+    /**
+     * @static
+     */
+    function returnFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
+                           $size = HTML_FORM_TEXT_SIZE,
+                           $accept = '', $attr = '')
+    {
+        $str  = " <tr>\n";
+        $str .= "  <th align=\"right\">$title:</th>\n";
+        $str .= "  <td>\n";
+        $str .= HTML_Form::returnFile($name, $maxsize, $size, $accept,
+                                      $attr);
+        $str .= "  </td>\n";
+        $str .= " </tr>\n";
+
         return $str;
     }
 
     // }}}
     // {{{ returnMultipleFiles()
 
+    /**
+     * @static
+     */
     function returnMultipleFiles($name = 'userfile[]',
                                  $maxsize = HTML_FORM_MAX_FILE_SIZE,
                                  $files = 3,
-                                 $size = HTML_FORM_TEXT_SIZE)
+                                 $size = HTML_FORM_TEXT_SIZE,
+                                 $accept = '', $attr = '')
     {
-        $str  = " <input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$maxsize\" />";
+        $str  = '<input type="hidden" name="MAX_FILE_SIZE" value="';
+        $str .= $maxsize . "\" />\n";
+
         for($i=0; $i < $files; $i++) {
-           $str .= " <input type=\"file\" name=\"$name\" size=\"$size\" /><br />";
+            $str .= '<input type="file" name="' . $name . '"';
+            $str .= ' size="' . $size . '" ';
+            if ($accept) {
+                $str .= 'accept="' . $accept . '" ';
+            }
+            $str .= $attr . "/><br />\n";
         }
         return $str;
     }
@@ -743,44 +1049,60 @@ class HTML_Form
     // }}}
     // {{{ returnStart()
 
+    /**
+     * Produces a string containing the opening tags for the form and table
+     *
+     * NOTE: can NOT be called statically.
+     */
     function returnStart($multipartformdata = false)
     {
-        $str = "<form action=\"" . basename ($this->action) . "\" method=\"$this->method\"";
+        $str = "<form action=\"" . $this->action . "\" method=\"$this->method\"";
         if ($this->name) {
             $str .= " name=\"$this->name\"";
         }
         if ($this->target) {
             $str .= " target=\"$this->target\"";
         }
+        if ($this->enctype) {
+            $str .= " enctype=\"$this->enctype\"";
+        }
         if ($multipartformdata) {
             $str .= " enctype=\"multipart/form-data\"";
         }
-        $str .= ">";
 
-        return $str;
+        return $str . ' ' . $this->attr . ">\n";
     }
 
     // }}}
     // {{{ returnEnd()
 
+    /**
+     * Produces a string containing the opening tags for the form and table
+     *
+     * NOTE: can NOT be called statically.
+     */
     function returnEnd()
     {
         $fields = array();
-        reset($this->fields);
-        while (list($i, $data) = each($this->fields)) {
-            if ($data[0] == 'reset') {
-                continue;
+        foreach ($this->fields as $i => $data) {
+            switch ($data[0]) {
+                case 'reset':
+                case 'blank':
+                    continue 2;
             }
             $fields[$data[1]] = true;
         }
-        $ret = $this->returnHidden("_fields", implode(":", array_keys($fields)));
-        $ret .= "</form>";
+        $ret = HTML_Form::returnHidden("_fields", implode(":", array_keys($fields)));
+        $ret .= "</form>\n\n";
         return $ret;
     }
 
     // }}}
     // {{{ returnPlaintext()
 
+    /**
+     * @static
+     */
     function returnPlaintext($text = '&nbsp;')
     {
         return $text;
@@ -789,26 +1111,44 @@ class HTML_Form
     // }}}
     // {{{ returnPlaintextRow()
 
-    function returnPlaintextRow($title, $text = '&nbsp;')
+    /**
+     * @static
+     */
+    function returnPlaintextRow($title, $text = '&nbsp;', $attr = '')
     {
         $str  = " <tr>\n";
-        $str .= "  <th align=\"right\">$title:</th>";
-        $str .= "  <td>";
-        $str .= $this->returnPlaintext($text);
-        $str .= "</td>\n";
+        $str .= "  <th align=\"right\" valign=\"top\">$title:</th>\n";
+        $str .= "  <td>\n  ";
+        $str .= HTML_Form::returnPlaintext($text) . "\n";
+        $str .= "  </td>\n";
         $str .= " </tr>\n";
 
         return $str;
     }
 
     // }}}
-
     // {{{ display()
 
+    /**
+     * Prints a complete form with all fields you specified via
+     * the add*() methods
+     *
+     * NOTE: can NOT be called statically.
+     */
     function display()
     {
-        $arrname = 'HTTP_'.strtoupper($this->method).'_VARS';
-        $arr = &$GLOBALS[$arrname];
+        $arrname = '_' . strtoupper($this->method);
+        if (isset($$arrname)) {
+            $arr =& $$arrname;
+        } else {
+            $arrname = 'HTTP' . $arrname . '_VARS';
+            if (isset($GLOBALS[$arrname])) {
+                $arr =& $GLOBALS[$arrname];
+            } else {
+                $arr = array();
+            }
+        }
+
         $this->start();
         print "<table>\n";
         reset($this->fields);
@@ -817,46 +1157,52 @@ class HTML_Form
             switch ($data[0]) {
                 case "hidden":
                     $hidden[] = $i;
-                    $defind = 0;
+                    $defind = 1;
                     continue 2;
                 case "reset":
-                    $params = 1;
-                    $defind = 0;
+                    $params = 2;
+                    $defind = 2;
                     break;
                 case "submit":
-                case "blank": // new
+                    $params = 3;
+                    $defind = 3;
+                    break;
+                case "blank":
                     $params = 2;
-                    $defind = 0;
+                    $defind = 1;
                     break;
                 case "image":
-                    $params = 2;
-                    $defind = 0;
+                    $params = 4;
+                    $defind = 1;
                     break;
                 case "checkbox":
-                    $params = 3;
+                    $params = 4;
                     $defind = 2;
                     break;
                 case "file":  //new
                 case "text":
-                    $params = 5;
-                    $defind = 3;
+                    $params = 6;
+                    $defind = 4;
                     break;
                 case "password":
-                case "radio":
-                    $params = 4;
-                    $defind = 3;
-                    break;
-                case "textarea":
                     $params = 6;
                     $defind = 3;
                     break;
-                case "select":
-                    $params = 8;
+                case "radio":
+                    $params = 5;
+                    $defind = 2;
+                    break;
+                case "textarea":
+                    $params = 7;
                     $defind = 4;
                     break;
+                case "select":
+                    $params = 8;
+                    $defind = 5;
+                    break;
                 case "plaintext":
-                    $params = 2;
-                    $defind = 1;
+                    $params = 3;
+                    $defind = 2;
                     break;
                 default:
                     // unknown field type
@@ -877,7 +1223,8 @@ class HTML_Form
         print "</table>\n";
         for ($i = 0;$i < sizeof($hidden);$i++) {
             $this->displayHidden($this->fields[$hidden[$i]][1],
-                                 $this->fields[$hidden[$i]][2]);
+                                 $this->fields[$hidden[$i]][2],
+                                 $this->fields[$hidden[$i]][3]);
         }
         $this->end();
     }
