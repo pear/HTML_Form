@@ -95,6 +95,14 @@ echo "------------ DISPLAY ADD\n";
 $form->addPassword('nm', 'Ttl');
 $form->display();
 $form->fields = array();
+echo "------------ RETURN ROW ONE\n";
+echo $form->returnPasswordOneRow('nm', 'Ttl');
+echo "------------ DISPLAY ROW ONE\n";
+$form->displayPasswordOneRow('nm', 'Ttl');
+echo "------------ DISPLAY ADD ONE\n";
+$form->addPasswordOne('nm', 'Ttl');
+$form->display();
+$form->fields = array();
 
 echo "============ PASSWORD MANUAL ============\n";
 echo "------------ RETURN\n";
@@ -603,6 +611,33 @@ $tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
   <td >
    <input type="password" name="nm" size="8" value="" />
    repeat: <input type="password" name="nm2" size="8" value="" />
+  </td>
+ </tr>
+</table>
+<input type="hidden" name="_fields" value="nm" />
+</form>
+
+------------ RETURN ROW ONE
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <input type="password" name="nm" size="8" value="" />
+  </td>
+ </tr>
+------------ DISPLAY ROW ONE
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <input type="password" name="nm" size="8" value="" />
+  </td>
+ </tr>
+------------ DISPLAY ADD ONE
+<form action="test.php" method="get" >
+<table >
+ <tr>
+  <th align="right" valign="top">Ttl</th>
+  <td >
+   <input type="password" name="nm" size="8" value="" />
   </td>
  </tr>
 </table>

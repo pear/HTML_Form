@@ -244,6 +244,42 @@ class HTML_Form
     // {{{ addPassword()
 
     /**
+     * Adds a combined password input and password confirmation input
+     * to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::addPasswordOne(), HTML_Form::display(),
+     *      HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow(),
+     *      HTML_Form::displayPasswordOneRow(),
+     *      HTML_Form::returnPasswordOneRow()
+     */
+    function addPassword($name, $title, $default = null,
+                         $size = HTML_FORM_PASSWD_SIZE,
+                         $maxlength = 0, $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                         $tdattr = HTML_FORM_TD_ATTR)
+    {
+        $this->fields[] = array('password', $name, $title, $default, $size,
+                                $maxlength, $attr, $thattr, $tdattr);
+    }
+
+    // }}}
+    // {{{ addPasswordOne()
+
+    /**
      * Adds a password input to the list of fields to be processed by display()
      *
      * @param string $name      the string used in the 'name' attribute
@@ -260,16 +296,18 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display(),
+     * @see HTML_Form::addPassword(), HTML_Form::display(),
      *      HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
-     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow(),
+     *      HTML_Form::displayPasswordOneRow(),
+     *      HTML_Form::returnPasswordOneRow()
      */
-    function addPassword($name, $title, $default = null,
-                         $size = HTML_FORM_PASSWD_SIZE,
-                         $maxlength = 0, $attr = '', $thattr = HTML_FORM_TH_ATTR,
-                         $tdattr = HTML_FORM_TD_ATTR)
+    function addPasswordOne($name, $title, $default = null,
+                            $size = HTML_FORM_PASSWD_SIZE,
+                            $maxlength = 0, $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
-        $this->fields[] = array('password', $name, $title, $default, $size,
+        $this->fields[] = array('passwordOne', $name, $title, $default, $size,
                                 $maxlength, $attr, $thattr, $tdattr);
     }
 
@@ -758,7 +796,8 @@ class HTML_Form
      *
      * @access public
      * @static
-     * @see HTML_Form::displayPassword(), HTML_Form::addPassword(),
+     * @see HTML_Form::displayPasswordOneRow(),
+     *      HTML_Form::displayPassword(), HTML_Form::addPassword(),
      *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
     function displayPasswordRow($name, $title, $default = null,
@@ -770,6 +809,43 @@ class HTML_Form
         print HTML_Form::returnPasswordRow($name, $title, $default,
                                            $size, $maxlength, $attr, $thattr,
                                            $tdattr);
+    }
+
+    // }}}
+    // {{{ displayPasswordOneRow()
+
+    /**
+     * Prints a password input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
+     * @return void
+     *
+     * @access public
+     * @static
+     * @see HTML_Form::displayPasswordRow(),
+     *      HTML_Form::displayPassword(), HTML_Form::addPassword(),
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow(),
+     *      HTML_Form::returnPasswordOneRow()
+     */
+    function displayPasswordOneRow($name, $title, $default = null,
+                                   $size = HTML_FORM_PASSWD_SIZE,
+                                   $maxlength = 0, $attr = '',
+                                   $thattr = HTML_FORM_TH_ATTR,
+                                   $tdattr = HTML_FORM_TD_ATTR)
+    {
+        print HTML_Form::returnPasswordOneRow($name, $title, $default,
+                                              $size, $maxlength, $attr, $thattr,
+                                              $tdattr);
     }
 
     // }}}
@@ -1498,6 +1574,48 @@ class HTML_Form
                                           $maxlength, $attr);
         $str .= "   repeat: ";
         $str .= HTML_Form::returnPassword($name.'2', $default, $size,
+                                          $maxlength, $attr);
+        $str .= "  </td>\n";
+        $str .= " </tr>\n";
+
+        return $str;
+    }
+
+    // }}}
+    // {{{ returnPasswordOneRow()
+
+    /**
+     * Produce a string containing a password input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @param string $thattr    a string of additional attributes to be put
+     *                           in the <th> element (example: 'class="foo"')
+     * @param string $tdattr    a string of additional attributes to be put
+     *                           in the <td> element (example: 'class="foo"')
+     * @return string
+     *
+     * @access public
+     * @static
+     * @see HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
+     *      HTML_Form::returnPassword(), HTML_Form::addPassword(),
+     *      HTML_Form::displayPasswordOneRow()
+     */
+    function returnPasswordOneRow($name, $title, $default = null,
+                                  $size = HTML_FORM_PASSWD_SIZE,
+                                  $maxlength = 0, $attr = '',
+                                  $thattr = HTML_FORM_TH_ATTR,
+                                  $tdattr = HTML_FORM_TD_ATTR)
+    {
+        $str  = " <tr>\n";
+        $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
+        $str .= '  <td ' . $tdattr . ">\n   ";
+        $str .= HTML_Form::returnPassword($name, $default, $size,
                                           $maxlength, $attr);
         $str .= "  </td>\n";
         $str .= " </tr>\n";
@@ -2404,6 +2522,7 @@ class HTML_Form
                     $defind = 6;
                     break;
                 case 'password':
+                case 'passwordOne':
                     $params = 8;
                     $defind = 5;
                     break;
