@@ -22,7 +22,7 @@ form in "table mode" with a fixed layout.
   <release>
     <version>1.0.1</version>
     <state>stable</state>
-    <date>2003-02-09</date>
+    <date>2003-04-09</date>
     <notes>Packaging fix</notes>
     <filelist>
      <file role="php" name="HTML/Form.php"/>
