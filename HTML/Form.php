@@ -322,7 +322,7 @@ class HTML_Form
         print " <tr>\n";
         print "  <th align=\"right\" valign=\"top\">$title</th>\n";
         print "  <td>";
-        $this->displayTextarea($name, &$default, $width, $height, $maxlength);
+        $this->displayTextarea($name, $default, $width, $height, $maxlength);
         print "</td>\n";
         print " </tr>\n";
     }
