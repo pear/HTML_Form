@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.10 2004-05-28 18:19:06 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.11 2004-06-14 03:19:19 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -8,6 +8,8 @@ This is a simple HTML form generator.  It supports all the
 HTML form element types including file uploads, may return
 or print the form, just individual form elements or the full
 form in &quot;table mode&quot; with a fixed layout.
+
+This package has been superceded by HTML_QuickForm.
   </description>
   <license>PHP License</license>
   <maintainers>
@@ -25,7 +27,7 @@ form in &quot;table mode&quot; with a fixed layout.
   <release>
     <version>1.1.0RC1</version>
     <state>beta</state>
-    <date>2004-05-28</date>
+    <date>2004-06-14</date>
     <notes><![CDATA[
 * Don't pass $this->action through basename() in
 returnStart() or start().  Bug #658.
@@ -38,10 +40,10 @@ displayImage(), displayImageRow(), returnImageRow()
 and returnImage() methods.  Bug #1126.
 
 * Have returnStart() put $this->target into the
-<form> element's attributes.  PHP Bug #24017.
+<form> element's attributes.  PHP Bug #24017.  (nicos)
 
 * Remove reference on $default in
-displayTextareaRow().  PHP Bug #22062.
+displayTextareaRow().  PHP Bug #22062.  (mj)
 
 * Add docblock comments.
 
@@ -71,6 +73,11 @@ produce a separate hidden input for MAX_FILE_SIZE.
 comparison on $default to determine if checked.
 
 * ":" now appears in each $title.
+
+* Add the $thattr and $tdattr parameters.
+
+* Use <th> instead of <td> for empty cell in returnSubmitRow()
+and returnResetRow(), matching layout of other methods.
 
 * Ease maintenance by having all display*() methods
 just print the results of the return*() methods.
@@ -111,10 +118,17 @@ submit: 0 should have been 2
 blank:  0 should have been 1
 radio:  3 should have been 1
 select: 4 should have been 5
+
+* Added tests.
       ]]>
     </notes>
     <filelist>
       <file role="php" name="HTML/Form.php"/>
+      <dir name="tests" role="test">
+        <file name="form.phpt">
+          <replace from="@include_path@" to="php_dir" type="pear-config"/>
+        </file>
+      </dir>
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.0.0" />
