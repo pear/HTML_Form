@@ -163,7 +163,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayText(), HTML_Form::displayTextRow(),
+     *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
     function addText($name, $title, $default = '',
                      $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
@@ -189,7 +191,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
     function addPassword($name, $title, $default = '',
                          $size = HTML_FORM_PASSWD_SIZE,
@@ -213,7 +217,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayCheckbox(), HTML_Form::displayCheckboxRow(),
+     *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
     function addCheckbox($name, $title, $default = false, $attr = '')
     {
@@ -239,7 +245,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
+     *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
     function addTextarea($name, $title, $default = '',
                          $width = HTML_FORM_TEXTAREA_WT,
@@ -263,7 +271,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displaySubmit(), HTML_Form::displaySubmitRow(),
+     *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function addSubmit($name = 'submit', $title = 'Submit Changes',
                        $attr = '')
@@ -285,7 +295,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayReset(), HTML_Form::displayResetRow(),
+     *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
     function addReset($title = 'Discard Changes', $attr = '')
     {
@@ -315,7 +327,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
+     *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
     function addSelect($name, $title, $entries, $default = '', $size = 1,
                        $blank = '', $multiple = false, $attr = '')
@@ -339,7 +353,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayRadio(), HTML_Form::displayRadioRow(),
+     *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function addRadio($name, $title, $value, $default = false, $attr = '')
     {
@@ -362,7 +378,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayImage(), HTML_Form::displayImageRow(),
+     *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      */
     function addImage($name, $title, $src, $attr = '')
     {
@@ -382,7 +400,8 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayHidden(), HTML_Form::returnHidden()
      */
     function addHidden($name, $value, $attr = '')
     {
@@ -402,7 +421,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayBlank(), HTML_Form::displayBlankRow(),
+     *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
     function addBlank($i, $title = '')
     {
@@ -426,7 +447,10 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayFile(), HTML_Form::displayFileRow(),
+     *      HTML_Form::returnFile(), HTML_Form::returnFileRow(),
+     *      HTML_Form::returnMultipleFiles()
      */
     function addFile($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                      $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '')
@@ -449,7 +473,9 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::display()
+     * @see HTML_Form::display(),
+     *      HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
+     *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
     function addPlaintext($title, $text = '&nbsp;', $attr = '')
     {
@@ -472,6 +498,7 @@ class HTML_Form
      * @return void
      *
      * @access public
+     * @see HTML_Form::display(), HTML_Form::end(), HTML_Form::returnStart()
      */
     function start($multipartformdata = false)
     {
@@ -489,6 +516,7 @@ class HTML_Form
      * @return void
      *
      * @access public
+     * @see HTML_Form::display(), HTML_Form::start(), HTML_Form::returnEnd()
      */
     function end()
     {
@@ -511,6 +539,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayTextRow(), HTML_Form::addText(),
+     *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
     function displayText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
                          $maxlength = 0, $attr = '')
@@ -535,6 +565,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayText(), HTML_Form::addText(),
+     *      HTML_Form::returnText(), HTML_Form::returnTextRow()
      */
     function displayTextRow($name, $title, $default = '',
                             $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
@@ -560,6 +592,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPasswordRow(), HTML_Form::addPassword(),
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
     function displayPassword($name, $default = '',
                              $size = HTML_FORM_PASSWD_SIZE,
@@ -586,6 +620,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPassword(), HTML_Form::addPassword(),
+     *      HTML_Form::returnPassword(), HTML_Form::returnPasswordRow()
      */
     function displayPasswordRow($name, $title, $default = '',
                                 $size = HTML_FORM_PASSWD_SIZE,
@@ -609,6 +645,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayCheckboxRow(), HTML_Form::addCheckbox(),
+     *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
     function displayCheckbox($name, $default = false, $attr = '')
     {
@@ -630,6 +668,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayCheckboxRow(), HTML_Form::addCheckbox(),
+     *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
     function displayCheckboxRow($name, $title, $default = false, $attr = '')
     {
@@ -655,6 +695,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayTextareaRow(), HTML_Form::addTextarea(),
+     *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
     function displayTextarea($name, $default = '', $width = 40,
                              $height = 5, $maxlength  = '', $attr = '')
@@ -683,6 +725,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayTextareaRow(), HTML_Form::addTextarea(),
+     *      HTML_Form::returnTextarea(), HTML_Form::returnTextareaRow()
      */
     function displayTextareaRow($name, $title, $default = '', $width = 40,
                                 $height = 5, $maxlength = 0, $attr = '')
@@ -707,6 +751,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySubmit(), HTML_Form::addSubmit(),
+     *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function displaySubmit($title = 'Submit Changes', $name = 'submit',
                            $attr = '')
@@ -728,6 +774,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySubmit(), HTML_Form::addSubmit(),
+     *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function displaySubmitRow($name = 'submit', $title = 'Submit Changes',
                               $attr = '')
@@ -750,6 +798,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayResetRow(), HTML_Form::addReset(),
+     *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
     function displayReset($title = 'Clear contents', $attr = '')
     {
@@ -771,6 +821,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayReset(), HTML_Form::addReset(),
+     *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
     function displayResetRow($title = 'Clear contents', $attr = '')
     {
@@ -800,6 +852,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySelectRow(), HTML_Form::addSelect(),
+     *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
     function displaySelect($name, $entries, $default = '', $size = 1,
                            $blank = '', $multiple = false, $attr = '')
@@ -832,6 +886,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySelect(), HTML_Form::addSelect(),
+     *      HTML_Form::returnSelect(), HTML_Form::returnSelectRow()
      */
     function displaySelectRow($name, $title, $entries, $default = '',
                               $size = 1, $blank = '', $multiple = false,
@@ -856,6 +912,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayImageRow(), HTML_Form::addImage(),
+     *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      * @since Method available since Release 1.1.0
      */
     function displayImage($name, $src, $attr = '')
@@ -879,6 +937,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayImage(), HTML_Form::addImage(),
+     *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      * @since Method available since Release 1.1.0
      */
     function displayImageRow($name, $title, $src, $attr = '')
@@ -900,6 +960,7 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::returnHidden(), HTML_Form::addHidden()
      */
     function displayHidden($name, $value, $attr = '')
     {
@@ -924,6 +985,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayRadioRow(), HTML_Form::addRadio(),
+     *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function displayRadio($name, $value, $default = false, $attr = '')
     {
@@ -946,6 +1009,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayRadio(), HTML_Form::addRadio(),
+     *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function displayRadioRow($name, $title, $value, $default = false,
                              $attr = '')
@@ -964,6 +1029,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayBlankRow(), HTML_Form::addBlank(),
+     *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
     function displayBlank()
     {
@@ -984,6 +1051,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayBlank(), HTML_Form::addBlank(),
+     *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
     function displayBlankRow($i, $title= '')
     {
@@ -1007,6 +1076,9 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayFileRow(), HTML_Form::addFile(),
+     *      HTML_Form::returnFile(), HTML_Form::returnFileRow(),
+     *      HTML_Form::returnMultipleFiles()
      */
     function displayFile($name, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                          $size = HTML_FORM_TEXT_SIZE, $accept = '',
@@ -1033,6 +1105,9 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayFile(), HTML_Form::addFile(),
+     *      HTML_Form::returnFile(), HTML_Form::returnFileRow(),
+     *      HTML_Form::returnMultipleFiles()
      */
     function displayFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                             $size = HTML_FORM_TEXT_SIZE, $accept = '',
@@ -1054,6 +1129,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPlaintextRow(), HTML_Form::addPlaintext(),
+     *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
     function displayPlaintext($text = '&nbsp;')
     {
@@ -1074,6 +1151,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPlaintext(), HTML_Form::addPlaintext(),
+     *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
     function displayPlaintextRow($title, $text = '&nbsp;', $attr = '')
     {
@@ -1099,6 +1178,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayText(), HTML_Form::displayTextRow(),
+     *      HTML_Form::returnTextRow(), HTML_Form::addText()
      */
     function returnText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
                         $maxlength = 0, $attr = '')
@@ -1128,6 +1209,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayText(), HTML_Form::displayTextRow(),
+     *      HTML_Form::returnText(), HTML_Form::addText()
      */
     function returnTextRow($name, $title, $default = '',
                            $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
@@ -1160,6 +1243,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
+     *      HTML_Form::returnPasswordRow(), HTML_Form::addPassword()
      */
     function returnPassword($name, $default = '',
                             $size = HTML_FORM_PASSWD_SIZE,
@@ -1190,6 +1275,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPassword(), HTML_Form::displayPasswordRow(),
+     *      HTML_Form::returnPassword(), HTML_Form::addPassword()
      */
     function returnPasswordRow($name, $title, $default = '',
                                $size = HTML_FORM_PASSWD_SIZE,
@@ -1223,6 +1310,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayCheckbox(), HTML_Form::displayCheckboxRow(),
+     *      HTML_Form::returnCheckboxRow(), HTML_Form::addCheckbox()
      */
     function returnCheckbox($name, $default = false, $attr = '')
     {
@@ -1248,6 +1337,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayCheckbox(), HTML_Form::displayCheckboxRow(),
+     *      HTML_Form::returnCheckbox(), HTML_Form::addCheckbox()
      */
     function returnCheckboxRow($name, $title, $default = false, $attr = '')
     {
@@ -1280,6 +1371,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
+     *      HTML_Form::returnTextareaRow(), HTML_Form::addTextarea()
      */
     function returnTextarea($name, $default = '', $width = 40, $height = 5,
                             $maxlength = 0, $attr = '')
@@ -1316,6 +1409,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayTextarea(), HTML_Form::displayTextareaRow(),
+     *      HTML_Form::returnTextareaRow(), HTML_Form::addTextarea()
      */
     function returnTextareaRow($name, $title, $default = '', $width = 40,
                                $height = 5, $maxlength = 0, $attr = '')
@@ -1347,6 +1442,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySubmit(), HTML_Form::displaySubmitRow(),
+     *      HTML_Form::returnSubmitRow(), HTML_Form::addSubmit()
      */
     function returnSubmit($title = 'Submit Changes', $name = 'submit',
                           $attr = '')
@@ -1369,6 +1466,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySubmit(), HTML_Form::displaySubmitRow(),
+     *      HTML_Form::returnSubmit(), HTML_Form::addSubmit()
      */
     function returnSubmitRow($name = 'submit', $title = 'Submit Changes',
                              $attr = '')
@@ -1398,6 +1497,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayReset(), HTML_Form::displayResetRow(),
+     *      HTML_Form::returnResetRow(), HTML_Form::addReset()
      */
     function returnReset($title = 'Clear contents', $attr = '')
     {
@@ -1420,6 +1521,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayReset(), HTML_Form::displayResetRow(),
+     *      HTML_Form::returnReset(), HTML_Form::addReset()
      */
     function returnResetRow($title = 'Clear contents', $attr = '')
     {
@@ -1456,6 +1559,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
+     *      HTML_Form::returnSelectRow(), HTML_Form::addSelect()
      */
     function returnSelect($name, $entries, $default = '', $size = 1,
                           $blank = '', $multiple = false, $attr = '')
@@ -1518,6 +1623,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displaySelect(), HTML_Form::displaySelectRow(),
+     *      HTML_Form::returnSelect(), HTML_Form::addSelect()
      */
     function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
                              $blank = '', $multiple = false, $attr = '')
@@ -1548,6 +1655,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayRadio(), HTML_Form::displayRadioRow(),
+     *      HTML_Form::returnRadioRow(), HTML_Form::addRadio()
      * @since Method available since Release 1.1.0
      */
     function returnRadio($name, $value, $default = false, $attr = '')
@@ -1574,6 +1683,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayRadio(), HTML_Form::displayRadioRow(),
+     *      HTML_Form::returnRadio(), HTML_Form::addRadio()
      * @since Method available since Release 1.1.0
      */
     function returnRadioRow($name, $title, $value, $default = false,
@@ -1602,6 +1713,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayImage(), HTML_Form::displayImageRow(),
+     *      HTML_Form::returnImageRow(), HTML_Form::addImage()
      * @since Method available since Release 1.1.0
      */
     function returnImage($name, $src, $attr = '')
@@ -1626,6 +1739,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayImage(), HTML_Form::displayImageRow(),
+     *      HTML_Form::returnImage(), HTML_Form::addImage()
      * @since Method available since Release 1.1.0
      */
     function returnImageRow($name, $title, $src, $attr = '')
@@ -1652,6 +1767,7 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayHidden(), HTML_Form::addHidden()
      */
     function returnHidden($name, $value, $attr = '')
     {
@@ -1669,6 +1785,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayBlank(), HTML_Form::displayBlankRow(),
+     *      HTML_Form::returnBlankRow(), HTML_Form::addBlank()
      * @since Method available since Release 1.1.0
      */
     function returnBlank()
@@ -1690,6 +1808,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayBlank(), HTML_Form::displayBlankRow(),
+     *      HTML_Form::returnBlank(), HTML_Form::addBlank()
      * @since Method available since Release 1.1.0
      */
     function returnBlankRow($i, $title= '')
@@ -1728,6 +1848,9 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayFile(), HTML_Form::displayFileRow(),
+     *      HTML_Form::returnFileRow(), HTML_Form::addFile(),
+     *      HTML_Form::returnMultipleFiles()
      */
     function returnFile($name = 'userfile',
                         $maxsize = HTML_FORM_MAX_FILE_SIZE,
@@ -1762,6 +1885,9 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayFile(), HTML_Form::displayFileRow(),
+     *      HTML_Form::returnFile(), HTML_Form::addFile(),
+     *      HTML_Form::returnMultipleFiles()
      */
     function returnFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                            $size = HTML_FORM_TEXT_SIZE,
@@ -1796,6 +1922,9 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayFile(), HTML_Form::displayFileRow(),
+     *      HTML_Form::returnFile(), HTML_Form::returnFileRow(),
+     *      HTML_Form::addFile()
      */
     function returnMultipleFiles($name = 'userfile[]',
                                  $maxsize = HTML_FORM_MAX_FILE_SIZE,
@@ -1830,6 +1959,7 @@ class HTML_Form
      * @return string
      *
      * @access public
+     * @see HTML_Form::display(), HTML_Form::returnEnd(), HTML_Form::start()
      */
     function returnStart($multipartformdata = false)
     {
@@ -1861,6 +1991,7 @@ class HTML_Form
      * @return string
      *
      * @access public
+     * @see HTML_Form::display(), HTML_Form::returnStart(), HTML_Form::start()
      */
     function returnEnd()
     {
@@ -1890,6 +2021,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
+     *      HTML_Form::returnPlaintextRow(), HTML_Form::addPlaintext()
      */
     function returnPlaintext($text = '&nbsp;')
     {
@@ -1910,6 +2043,8 @@ class HTML_Form
      *
      * @access public
      * @static
+     * @see HTML_Form::displayPlaintext(), HTML_Form::displayPlaintextRow(),
+     *      HTML_Form::returnPlaintext(), HTML_Form::addPlaintext()
      */
     function returnPlaintextRow($title, $text = '&nbsp;', $attr = '')
     {
@@ -1935,6 +2070,7 @@ class HTML_Form
      * @return void
      *
      * @access public
+     * @see HTML_Form::end(), HTML_Form::end()
      */
     function display()
     {
