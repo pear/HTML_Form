@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.14 2004-06-15 19:38:04 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.15 2004-09-21 18:09:32 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -25,20 +25,13 @@ This package has been superceded by HTML_QuickForm.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1.0RC2</version>
+    <version>1.1.0RC3</version>
     <state>beta</state>
-    <date>2004-06-15</date>
+    <date>2004-09-21</date>
     <notes><![CDATA[
-* Add $attr, $caption and $capattr parameters to dislpay().
-
-* Remove $attr from *PlaintextRow() methods.
-
-* Remove ":" from all $title cells to improve flexibility.
-
-* returnEnd() no longer populates _fields for
-addPlaintext() items.
-
-* Improve docblocks for *PasswordRow() methods.
+* Added HTML_FORM_TH_ATTR and HTML_FORM_TD_ATTR constants.
+Used as default values for the $thattr and $tdattr
+parameters to most methods.
       ]]>
     </notes>
     <filelist>
@@ -54,6 +47,24 @@ addPlaintext() items.
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>1.1.0RC2</version>
+      <state>beta</state>
+      <date>2004-06-15</date>
+      <notes><![CDATA[
+* Add $attr, $caption and $capattr parameters to dislpay().
+
+* Remove $attr from *PlaintextRow() methods.
+
+* Remove ":" from all $title cells to improve flexibility.
+
+* returnEnd() no longer populates _fields for
+addPlaintext() items.
+
+* Improve docblocks for *PasswordRow() methods.
+        ]]>
+      </notes>
+    </release>
     <release>
       <version>1.1.0RC1</version>
       <state>beta</state>

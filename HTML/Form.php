@@ -43,6 +43,29 @@ if (!defined('HTML_FORM_TEXTAREA_HT')) {
     define('HTML_FORM_TEXTAREA_HT', 5);
 }
 
+if (!defined('HTML_FORM_TH_ATTR')) {
+    /**
+     * Default value for the $thattr parameter of most methods.
+     *
+     * You can set this in your scripts before including Form.php
+     * so you don't have to manually set the argument each time
+     * you call a method.
+     */
+    define('HTML_FORM_TH_ATTR', 'align="right"');
+}
+
+if (!defined('HTML_FORM_TD_ATTR')) {
+    /**
+     * Default value for the $tdattr parameter of most methods.
+     *
+     * You can set this in your scripts before including Form.php
+     * so you don't have to manually set the argument each time
+     * you call a method.
+     */
+    define('HTML_FORM_TD_ATTR', '');
+}
+
+
 /**
  * HTML form utility functions
  *
@@ -168,7 +191,8 @@ class HTML_Form
      */
     function addText($name, $title, $default = '',
                      $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                     $attr = '', $thattr = 'align="right"', $tdattr = '')
+                     $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                     $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('text', $name, $title, $default, $size,
                                 $maxlength, $attr, $thattr, $tdattr);
@@ -200,8 +224,8 @@ class HTML_Form
      */
     function addPassword($name, $title, $default = '',
                          $size = HTML_FORM_PASSWD_SIZE,
-                         $maxlength = 0, $attr = '', $thattr = 'align="right"',
-                         $tdattr = '')
+                         $maxlength = 0, $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                         $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('password', $name, $title, $default, $size,
                                 $maxlength, $attr, $thattr, $tdattr);
@@ -230,7 +254,8 @@ class HTML_Form
      *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
     function addCheckbox($name, $title, $default = false, $attr = '',
-                         $thattr = 'align="right"', $tdattr = '')
+                         $thattr = HTML_FORM_TH_ATTR,
+                         $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('checkbox', $name, $title, $default, $attr,
                                 $thattr, $tdattr);
@@ -266,7 +291,8 @@ class HTML_Form
     function addTextarea($name, $title, $default = '',
                          $width = HTML_FORM_TEXTAREA_WT,
                          $height = HTML_FORM_TEXTAREA_HT, $maxlength = 0,
-                         $attr = '', $thattr = 'align="right"', $tdattr = '')
+                         $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                         $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('textarea', $name, $title, $default, $width,
                                 $height, $maxlength, $attr, $thattr, $tdattr);
@@ -294,7 +320,8 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function addSubmit($name = 'submit', $title = 'Submit Changes',
-                       $attr = '', $thattr = 'align="right"', $tdattr = '')
+                       $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                       $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('submit', $name, $title, $attr, $thattr,
                                 $tdattr);
@@ -323,7 +350,8 @@ class HTML_Form
      *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
     function addReset($title = 'Discard Changes', $attr = '',
-                      $thattr = 'align="right"', $tdattr = '')
+                      $thattr = HTML_FORM_TH_ATTR,
+                      $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('reset', $title, $attr, $thattr, $tdattr);
     }
@@ -361,7 +389,8 @@ class HTML_Form
      */
     function addSelect($name, $title, $entries, $default = '', $size = 1,
                        $blank = '', $multiple = false, $attr = '',
-                       $thattr = 'align="right"', $tdattr = '')
+                       $thattr = HTML_FORM_TH_ATTR,
+                       $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('select', $name, $title, $entries, $default,
                                 $size, $blank, $multiple, $attr, $thattr,
@@ -392,7 +421,8 @@ class HTML_Form
      *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function addRadio($name, $title, $value, $default = false, $attr = '',
-                      $thattr = 'align="right"', $tdattr = '')
+                      $thattr = HTML_FORM_TH_ATTR,
+                      $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('radio', $name, $title, $value, $default,
                                 $attr, $thattr, $tdattr);
@@ -422,7 +452,8 @@ class HTML_Form
      *      HTML_Form::returnImage(), HTML_Form::returnImageRow()
      */
     function addImage($name, $title, $src, $attr = '',
-                      $thattr = 'align="right"', $tdattr = '')
+                      $thattr = HTML_FORM_TH_ATTR,
+                      $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('image', $name, $title, $src, $attr, $thattr,
                                 $tdattr);
@@ -469,7 +500,8 @@ class HTML_Form
      *      HTML_Form::displayBlank(), HTML_Form::displayBlankRow(),
      *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
-    function addBlank($i, $title = '', $thattr = 'align="right"', $tdattr = '')
+    function addBlank($i, $title = '', $thattr = HTML_FORM_TH_ATTR,
+                      $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('blank', $i, $title, $thattr, $tdattr);
     }
@@ -502,7 +534,8 @@ class HTML_Form
      */
     function addFile($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                      $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '',
-                     $thattr = 'align="right"', $tdattr = '')
+                     $thattr = HTML_FORM_TH_ATTR,
+                     $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->enctype = "multipart/form-data";
         $this->fields[] = array('file', $name, $title, $maxsize, $size,
@@ -529,7 +562,7 @@ class HTML_Form
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
     function addPlaintext($title, $text = '&nbsp;',
-                          $thattr = 'align="right" valign="top"', $tdattr = '')
+                          $thattr = 'align="right" valign="top"', $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('plaintext', $title, $text, $thattr, $tdattr);
     }
@@ -626,7 +659,8 @@ class HTML_Form
      */
     function displayTextRow($name, $title, $default = '',
                             $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                            $attr = '', $thattr = 'align="right"', $tdattr = '')
+                            $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnTextRow($name, $title, $default, $size,
                                        $maxlength, $attr, $thattr, $tdattr);
@@ -687,7 +721,8 @@ class HTML_Form
     function displayPasswordRow($name, $title, $default = '',
                                 $size = HTML_FORM_PASSWD_SIZE,
                                 $maxlength = 0, $attr = '',
-                                $thattr = 'align="right"', $tdattr = '')
+                                $thattr = HTML_FORM_TH_ATTR,
+                                $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnPasswordRow($name, $title, $default,
                                            $size, $maxlength, $attr, $thattr,
@@ -739,7 +774,8 @@ class HTML_Form
      *      HTML_Form::returnCheckbox(), HTML_Form::returnCheckboxRow()
      */
     function displayCheckboxRow($name, $title, $default = false, $attr = '',
-                                $thattr = 'align="right"', $tdattr = '')
+                                $thattr = HTML_FORM_TH_ATTR,
+                                $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnCheckboxRow($name, $title, $default, $attr,
                                            $thattr, $tdattr);
@@ -803,7 +839,8 @@ class HTML_Form
      */
     function displayTextareaRow($name, $title, $default = '', $width = 40,
                                 $height = 5, $maxlength = 0, $attr = '',
-                                $thattr = 'align="right"', $tdattr = '')
+                                $thattr = HTML_FORM_TH_ATTR,
+                                $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnTextareaRow($name, $title, $default, $width,
                                            $height, $maxlength, $attr, $thattr,
@@ -857,7 +894,8 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::returnSubmitRow()
      */
     function displaySubmitRow($name = 'submit', $title = 'Submit Changes',
-                              $attr = '', $thattr = 'align="right"', $tdattr = '')
+                              $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                              $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnSubmitRow($name, $title, $attr, $thattr, $tdattr);
     }
@@ -908,7 +946,8 @@ class HTML_Form
      *      HTML_Form::returnReset(), HTML_Form::returnResetRow()
      */
     function displayResetRow($title = 'Clear contents', $attr = '',
-                             $thattr = 'align="right"', $tdattr = '')
+                             $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnResetRow($title, $attr, $thattr, $tdattr);
     }
@@ -979,7 +1018,8 @@ class HTML_Form
      */
     function displaySelectRow($name, $title, $entries, $default = '',
                               $size = 1, $blank = '', $multiple = false,
-                              $attr = '', $thattr = 'align="right"', $tdattr = '')
+                              $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                              $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnSelectRow($name, $title, $entries, $default,
                                          $size, $blank, $multiple, $attr,
@@ -1035,7 +1075,8 @@ class HTML_Form
      * @since Method available since Release 1.1.0
      */
     function displayImageRow($name, $title, $src, $attr = '',
-                             $thattr = 'align="right"', $tdattr = '')
+                             $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnImageRow($name, $title, $src, $attr, $thattr,
                                         $tdattr);
@@ -1112,7 +1153,8 @@ class HTML_Form
      *      HTML_Form::returnRadio(), HTML_Form::returnRadioRow()
      */
     function displayRadioRow($name, $title, $value, $default = false,
-                             $attr = '', $thattr = 'align="right"', $tdattr = '')
+                             $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnRadioRow($name, $title, $value, $default,
                                         $attr, $thattr, $tdattr);
@@ -1156,8 +1198,8 @@ class HTML_Form
      * @see HTML_Form::displayBlank(), HTML_Form::addBlank(),
      *      HTML_Form::returnBlank(), HTML_Form::returnBlankRow()
      */
-    function displayBlankRow($i, $title= '', $thattr = 'align="right"',
-                             $tdattr = '')
+    function displayBlankRow($i, $title= '', $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnBlankRow($i, $title, $thattr, $tdattr);
     }
@@ -1218,7 +1260,8 @@ class HTML_Form
      */
     function displayFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                             $size = HTML_FORM_TEXT_SIZE, $accept = '',
-                            $attr = '', $thattr = 'align="right"', $tdattr = '')
+                            $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnFileRow($name, $title, $maxsize,
                                        $size, $accept, $attr, $thattr, $tdattr);
@@ -1265,7 +1308,7 @@ class HTML_Form
      */
     function displayPlaintextRow($title, $text = '&nbsp;',
                                  $thattr = 'align="right valign="top""',
-                                 $tdattr = '')
+                                 $tdattr = HTML_FORM_TD_ATTR)
     {
         print HTML_Form::returnPlaintextRow($title, $text, $thattr, $tdattr);
     }
@@ -1329,7 +1372,8 @@ class HTML_Form
      */
     function returnTextRow($name, $title, $default = '',
                            $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
-                           $attr = '', $thattr = 'align="right"', $tdattr = '')
+                           $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                           $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -1401,7 +1445,8 @@ class HTML_Form
     function returnPasswordRow($name, $title, $default = '',
                                $size = HTML_FORM_PASSWD_SIZE,
                                $maxlength = 0, $attr = '',
-                               $thattr = 'align="right"', $tdattr = '')
+                               $thattr = HTML_FORM_TH_ATTR,
+                               $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -1466,7 +1511,8 @@ class HTML_Form
      *      HTML_Form::returnCheckbox(), HTML_Form::addCheckbox()
      */
     function returnCheckboxRow($name, $title, $default = false, $attr = '',
-                               $thattr = 'align="right"', $tdattr = '')
+                               $thattr = HTML_FORM_TH_ATTR,
+                               $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -1544,7 +1590,8 @@ class HTML_Form
      */
     function returnTextareaRow($name, $title, $default = '', $width = 40,
                                $height = 5, $maxlength = 0, $attr = '',
-                               $thattr = 'align="right"', $tdattr = '')
+                               $thattr = HTML_FORM_TH_ATTR,
+                               $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -1605,7 +1652,8 @@ class HTML_Form
      *      HTML_Form::returnSubmit(), HTML_Form::addSubmit()
      */
     function returnSubmitRow($name = 'submit', $title = 'Submit Changes',
-                             $attr = '', $thattr = 'align="right"', $tdattr = '')
+                             $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
@@ -1664,7 +1712,8 @@ class HTML_Form
      *      HTML_Form::returnReset(), HTML_Form::addReset()
      */
     function returnResetRow($title = 'Clear contents', $attr = '',
-                            $thattr = 'align="right"', $tdattr = '')
+                            $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . ">&nbsp;</td>\n";
@@ -1772,7 +1821,8 @@ class HTML_Form
      */
     function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
                              $blank = '', $multiple = false, $attr = '',
-                             $thattr = 'align="right"', $tdattr = '')
+                             $thattr = HTML_FORM_TH_ATTR,
+                             $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -1837,7 +1887,8 @@ class HTML_Form
      * @since Method available since Release 1.1.0
      */
     function returnRadioRow($name, $title, $value, $default = false,
-                            $attr = '', $thattr = 'align="right"', $tdattr = '')
+                            $attr = '', $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         return " <tr>\n" .
                '  <th ' . $thattr . '>' . $title . "</th>\n" .
@@ -1897,7 +1948,8 @@ class HTML_Form
      * @since Method available since Release 1.1.0
      */
     function returnImageRow($name, $title, $src, $attr = '',
-                            $thattr = 'align="right"', $tdattr = '')
+                            $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         return " <tr>\n" .
                '  <th ' . $thattr . '>' . $title . "</th>\n" .
@@ -1969,8 +2021,8 @@ class HTML_Form
      *      HTML_Form::returnBlank(), HTML_Form::addBlank()
      * @since Method available since Release 1.1.0
      */
-    function returnBlankRow($i, $title= '', $thattr = 'align="right"',
-                            $tdattr = '')
+    function returnBlankRow($i, $title= '', $thattr = HTML_FORM_TH_ATTR,
+                            $tdattr = HTML_FORM_TD_ATTR)
     {
         if (!$title) {
             $str = '';
@@ -2053,8 +2105,9 @@ class HTML_Form
      */
     function returnFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                            $size = HTML_FORM_TEXT_SIZE,
-                           $accept = '', $attr = '', $thattr = 'align="right"',
-                           $tdattr = '')
+                           $accept = '', $attr = '',
+                           $thattr = HTML_FORM_TH_ATTR,
+                           $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
@@ -2215,7 +2268,7 @@ class HTML_Form
      */
     function returnPlaintextRow($title, $text = '&nbsp;',
                                 $thattr = 'align="right" valign="top"',
-                                $tdattr = '')
+                                $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
         $str .= '  <th ' . $thattr . '>' . $title . "</th>\n";
