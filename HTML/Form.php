@@ -749,6 +749,9 @@ class HTML_Form
         if ($this->name) {
             $str .= " name=\"$this->name\"";
         }
+        if ($this->target) {
+            $str .= " target=\"$this->target\"";
+        }
         if ($multipartformdata) {
             $str .= " enctype=\"multipart/form-data\"";
         }
