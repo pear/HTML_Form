@@ -22,10 +22,18 @@ form in "table mode" with a fixed layout.
   <release>
     <version>1.0.1</version>
     <state>stable</state>
-    <date>2003-01-10</date>
-    <notes>Initial independent release</notes>
+    <date>2003-02-09</date>
+    <notes>Packaging fix</notes>
     <filelist>
      <file role="php" name="HTML/Form.php"/>
     </filelist>
   </release>
+  <changelog>
+    <release>
+      <version>1.0</version>
+      <state>stable</state>
+      <date>2003-01-10</date>
+      <notes>Initial independent release</notes>
+    </release>
+  </changelog>
 </package>
