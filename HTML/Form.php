@@ -2253,7 +2253,7 @@ class HTML_Form
     function returnEnd()
     {
         $fields = array();
-        foreach ($this->fields as $i => $data) {
+        foreach ($this->fields as $data) {
             switch ($data[0]) {
                 case 'reset':
                 case 'blank':
