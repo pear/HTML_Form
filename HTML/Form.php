@@ -395,9 +395,10 @@ class HTML_Form
     /**
      * Adds a blank row to the list of fields to be processed by display()
      *
-     * @param int    $i         the number of rows to create
-     * @param string $title     a string to be used as the label for the row.
-     *                           Ignored if $i is > 1.
+     * @param int    $i         the number of rows to create.  Ignored if
+     *                           $title is used.
+     * @param string $title     a string to be used as the label for the row
+     *
      * @return void
      *
      * @access public
@@ -975,9 +976,10 @@ class HTML_Form
     /**
      * Prints a blank row in the table
      *
-     * @param int    $i         the number of rows to create
-     * @param string $title     a string to be used as the label for the row.
-     *                           Ignored if $i is > 1.
+     * @param int    $i         the number of rows to create.  Ignored if
+     *                           $title is used.
+     * @param string $title     a string to be used as the label for the row
+     *
      * @return void
      *
      * @access public
@@ -1680,9 +1682,10 @@ class HTML_Form
     /**
      * Produce a string containing a blank row in the table
      *
-     * @param int    $i         the number of rows to create
-     * @param string $title     a string to be used as the label for the row.
-     *                           Ignored if $i is > 1.
+     * @param int    $i         the number of rows to create.  Ignored if
+     *                           $title is used.
+     * @param string $title     a string to be used as the label for the row
+     *
      * @return string
      *
      * @access public
