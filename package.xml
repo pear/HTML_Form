@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "../../php4/pear/package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package version="1.0">
+  <name>HTML_Form</name>
+  <summary>Simple HTML form package</summary>
+  <description>
+This is a simple HTML form generator.  It supports all the HTML form
+element types including file uploads, may return or print the form,
+just individual form elements or the full form in "table mode" with
+a fixed layout.
+</description>
+  <license>PHP License</license>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0</version>
+    <state>stable</state>
+    <date>2003-01-10</date>
+    <notes>Initial independent release</notes>
+    <filelist>
+     <file role="php" name="HTML/Form.php" baseinstalldir="HTML"/>
+    </filelist>
+  </release>
+</package>
