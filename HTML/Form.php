@@ -109,6 +109,8 @@ if (!defined('HTML_FORM_TD_ATTR')) {
 /**
  * HTML form utility functions
  *
+ * @category   HTML
+ * @package    HTML_Form
  * @author     Stig Bakken <ssb@fast.no>
  * @author     Urs Gehrig <urs@circle.ch>
  * @author     Daniel Convissor <danielc@php.net>
