@@ -2163,6 +2163,7 @@ class HTML_Form
             switch ($data[0]) {
                 case 'reset':
                 case 'blank':
+                case 'plaintext':
                     continue 2;
             }
             $fields[$data[1]] = true;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.13 2004-06-15 19:24:57 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.14 2004-06-15 19:38:04 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -34,6 +34,9 @@ This package has been superceded by HTML_QuickForm.
 * Remove $attr from *PlaintextRow() methods.
 
 * Remove ":" from all $title cells to improve flexibility.
+
+* returnEnd() no longer populates _fields for
+addPlaintext() items.
 
 * Improve docblocks for *PasswordRow() methods.
       ]]>
