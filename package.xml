@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.7 2004-05-28 06:28:31 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.8 2004-05-28 06:43:38 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -26,8 +26,7 @@ form in &quot;table mode&quot; with a fixed layout.
     <version>1.1.0RC1</version>
     <state>beta</state>
     <date>2004-05-28</date>
-    <notes>
-     <![CDATA[
+    <notes><![CDATA[
 * Don't pass $this->action through basename() in
 returnStart() or start().  Bug #658.
 
@@ -104,11 +103,14 @@ submit: 0 should have been 2
 blank:  0 should have been 1
 radio:  3 should have been 1
 select: 4 should have been 5
-     ]]>
+      ]]>
     </notes>
     <filelist>
-     <file role="php" name="HTML/Form.php"/>
+      <file role="php" name="HTML/Form.php"/>
     </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.0" />
+    </deps>
   </release>
   <changelog>
     <release>
