@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.9 2004-05-28 07:28:25 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.10 2004-05-28 18:19:06 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -30,8 +30,8 @@ form in &quot;table mode&quot; with a fixed layout.
 * Don't pass $this->action through basename() in
 returnStart() or start().  Bug #658.
 
-* Add docblock comments for methods with unusual
-parameter orders.  Bug #659.
+* Make notes in the docblock comments regarding
+methods with unusual parameter orders.  Bug #659.
 
 * addImage() now works.  Accomplished by adding
 displayImage(), displayImageRow(), returnImageRow()
@@ -42,6 +42,8 @@ and returnImage() methods.  Bug #1126.
 
 * Remove reference on $default in
 displayTextareaRow().  PHP Bug #22062.
+
+* Add docblock comments.
 
 * Add new methods: returnRadio(), returnRadioRow()
 and returnFileRow().

@@ -48,41 +48,90 @@ if (!defined('HTML_FORM_TEXTAREA_HT')) {
     define('HTML_FORM_TEXTAREA_HT', 5);
 }
 
+/**
+ * HTML form utility functions
+ *
+ * @category HTML
+ * @package  HTML_Form
+ * @author   Stig Bakken <ssb@fast.no>
+ * @author   Urs Gehrig <urs@circle.ch>
+ * @author   Daniel Convissor <danielc@php.net>
+ * @version  $Id$
+ * @access   public
+ */
 class HTML_Form
 {
     // {{{ properties
 
-    /** ACTION attribute of <form> tag */
+    /**
+     * ACTION attribute of <form> tag
+     * @var string
+     */
     var $action;
 
-    /** METHOD attribute of <form> tag */
+    /**
+     * METHOD attribute of <form> tag
+     * @var string
+     */
     var $method;
 
-    /** NAME attribute of <form> tag */
+    /**
+     * NAME attribute of <form> tag
+     * @var string
+     */
     var $name;
 
-    /** an array of entries for this form */
+    /**
+     * an array of entries for this form
+     * @var array
+     */
     var $fields;
 
-    /** DB_storage object, if tied to one */
+    /**
+     * DB_storage object, if tied to one
+     */
     var $storageObject;
 
-    /** TARGET attribute of <form> tag */
+    /**
+     * TARGET attribute of <form> tag
+     * @var string
+     */
     var $target;
 
-    /** ENCTYPE attribute of <form> tag */
+    /**
+     * ENCTYPE attribute of <form> tag
+     * @var string
+     */
     var $enctype;
 
     /**
      * additional attributes for <form> tag
      *
+     * @var string
      * @since Property available since Release 1.1.0
      */
     var $attr;
 
+
     // }}}
     // {{{ constructor
 
+    /**
+     * Constructor
+     *
+     * @param string $action  the string naming file or URI to which the form
+     *                         should be submitted
+     * @param string $method  a string indicating the submission method
+     *                         ('get' or 'post')
+     * @param string $name    a string used in the <form>'s 'name' attribute
+     * @param string $target  a string used in the <form>'s 'target' attribute
+     * @param string $enctype a string indicating the submission's encoding
+     * @param string $attr    a string of additional attributes to be put
+     *                         in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     */
     function HTML_Form($action, $method = 'get', $name = '', $target = '',
                        $enctype = '', $attr = '')
     {
@@ -101,8 +150,23 @@ class HTML_Form
     // }}}
     // {{{ addText()
 
+    /**
+     * Adds a text input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addText($name, $title, $default = '',
-                     $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                     $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                      $attr = '')
     {
         $this->fields[] = array('text', $name, $title, $default, $size,
@@ -112,9 +176,24 @@ class HTML_Form
     // }}}
     // {{{ addPassword()
 
+    /**
+     * Adds a password input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addPassword($name, $title, $default = '',
                          $size = HTML_FORM_PASSWD_SIZE,
-                         $maxlength = '', $attr = '')
+                         $maxlength = 0, $attr = '')
     {
         $this->fields[] = array('password', $name, $title, $default, $size,
                                 $maxlength, $attr);
@@ -123,6 +202,19 @@ class HTML_Form
     // }}}
     // {{{ addCheckbox()
 
+    /**
+     * Adds a checkbox input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addCheckbox($name, $title, $default = false, $attr = '')
     {
         $this->fields[] = array('checkbox', $name, $title, $default, $attr);
@@ -131,9 +223,27 @@ class HTML_Form
     // }}}
     // {{{ addTextarea()
 
+    /**
+     * Adds a textarea input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $width     an integer saying how many characters wide
+     *                           the item should be
+     * @param int    $height    an integer saying how many rows tall the
+     *                           item should be
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addTextarea($name, $title, $default = '',
                          $width = HTML_FORM_TEXTAREA_WT,
-                         $height = HTML_FORM_TEXTAREA_HT, $maxlength = '',
+                         $height = HTML_FORM_TEXTAREA_HT, $maxlength = 0,
                          $attr = '')
     {
         $this->fields[] = array('textarea', $name, $title, $default, $width,
@@ -143,6 +253,18 @@ class HTML_Form
     // }}}
     // {{{ addSubmit()
 
+    /**
+     * Adds a submit button to the list of fields to be processed by display()
+     *
+     * @param string $name      a string used in the 'name' attribute
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addSubmit($name = 'submit', $title = 'Submit Changes',
                        $attr = '')
     {
@@ -156,6 +278,14 @@ class HTML_Form
      * Adds a reset button to the list of fields to be processed by display()
      *
      * NOTE: Unusual parameter order.
+     *
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
      */
     function addReset($title = 'Discard Changes', $attr = '')
     {
@@ -165,6 +295,28 @@ class HTML_Form
     // }}}
     // {{{ addSelect()
 
+    /**
+     * Adds a select list to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param array  $entries   an array containing the <options> to be listed.
+     *                           The array's keys become the option values and
+     *                           the array's values become the visible text.
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer saying how many rows should be
+     * @param string $blank     if this string is present, an <option> will be
+     *                           added to the top of the list that will contain
+     *                           the given text in the visible portion and an
+     *                           empty string as the value
+     * @param bool   $multiple  a bool saying if multiple choices are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addSelect($name, $title, $entries, $default = '', $size = 1,
                        $blank = '', $multiple = false, $attr = '')
     {
@@ -175,6 +327,20 @@ class HTML_Form
     // }}}
     // {{{ addRadio()
 
+    /**
+     * Adds a radio input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $value     the string used for the item's value
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addRadio($name, $title, $value, $default = false, $attr = '')
     {
         $this->fields[] = array('radio', $name, $title, $value, $default,
@@ -184,6 +350,20 @@ class HTML_Form
     // }}}
     // {{{ addImage()
 
+    /**
+     * Adds an image input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $src       the string denoting the path to the image.
+     *                           Can be a relative path or full URI.
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addImage($name, $title, $src, $attr = '')
     {
         $this->fields[] = array('image', $name, $title, $src, $attr);
@@ -192,6 +372,18 @@ class HTML_Form
     // }}}
     // {{{ addHidden()
 
+    /**
+     * Adds a hiden input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $value     the string used for the item's value
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addHidden($name, $value, $attr = '')
     {
         $this->fields[] = array('hidden', $name, $value, $attr);
@@ -200,6 +392,17 @@ class HTML_Form
     // }}}
     // {{{ addBlank()
 
+    /**
+     * Adds a blank row to the list of fields to be processed by display()
+     *
+     * @param int    $i         the number of rows to create
+     * @param string $title     a string to be used as the label for the row.
+     *                           Ignored if $i is > 1.
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addBlank($i, $title = '')
     {
         $this->fields[] = array('blank', $i, $title);
@@ -208,6 +411,22 @@ class HTML_Form
     // }}}
     // {{{ addFile
 
+    /**
+     * Adds a file upload input to the list of fields to be processed by display()
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addFile($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
                      $size = HTML_FORM_TEXT_SIZE, $accept = '', $attr = '')
     {
@@ -219,6 +438,18 @@ class HTML_Form
     // }}}
     // {{{ addPlaintext()
 
+    /**
+     * Adds a row of text to the list of fields to be processed by display()
+     *
+     * @param string $title     the string used as the label
+     * @param string $text      a string to be displayed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
+     * @see HTML_Form::display()
+     */
     function addPlaintext($title, $text = '&nbsp;', $attr = '')
     {
         $this->fields[] = array('plaintext', $title, $text, $attr);
@@ -234,6 +465,12 @@ class HTML_Form
      * Prints the opening tags for the form and table
      *
      * NOTE: can NOT be called statically.
+     *
+     * @param bool $multipartformdata  a bool indicating if the form should
+     *                                  be submitted in multipart format
+     * @return void
+     *
+     * @access public
      */
     function start($multipartformdata = false)
     {
@@ -247,6 +484,10 @@ class HTML_Form
      * Prints the ending tags for the table and form
      *
      * NOTE: can NOT be called statically.
+     *
+     * @return void
+     *
+     * @access public
      */
     function end()
     {
@@ -257,11 +498,21 @@ class HTML_Form
     // {{{ displayText()
 
     /**
+     * Prints a text input element
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
-    function displayText($name, $default = '',
-                         $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
-                         $attr = '')
+    function displayText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
+                         $maxlength = 0, $attr = '')
     {
         print HTML_Form::returnText($name, $default, $size, $maxlength, $attr);
     }
@@ -270,10 +521,22 @@ class HTML_Form
     // {{{ displayTextRow()
 
     /**
+     * Prints a text input element inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayTextRow($name, $title, $default = '',
-                            $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                            $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                             $attr = '')
     {
         print HTML_Form::returnTextRow($name, $title, $default, $size,
@@ -284,11 +547,22 @@ class HTML_Form
     // {{{ displayPassword()
 
     /**
+     * Prints a password input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayPassword($name, $default = '',
                              $size = HTML_FORM_PASSWD_SIZE,
-                             $maxlength = '', $attr = '')
+                             $maxlength = 0, $attr = '')
     {
         print HTML_Form::returnPassword($name, $default, $size, $maxlength,
                                         $attr);
@@ -298,11 +572,23 @@ class HTML_Form
     // {{{ displayPasswordRow()
 
     /**
+     * Prints a password input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayPasswordRow($name, $title, $default = '',
                                 $size = HTML_FORM_PASSWD_SIZE,
-                                $maxlength = '', $attr = '')
+                                $maxlength = 0, $attr = '')
     {
         print HTML_Form::returnPasswordRow($name, $title, $default,
                                            $size, $maxlength, $attr);
@@ -312,6 +598,15 @@ class HTML_Form
     // {{{ displayCheckbox()
 
     /**
+     * Prints a checkbox input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayCheckbox($name, $default = false, $attr = '')
@@ -323,6 +618,16 @@ class HTML_Form
     // {{{ displayCheckboxRow()
 
     /**
+     * Prints a checkbox input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayCheckboxRow($name, $title, $default = false, $attr = '')
@@ -334,6 +639,20 @@ class HTML_Form
     // {{{ displayTextarea()
 
     /**
+     * Prints a textarea input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $width     an integer saying how many characters wide
+     *                           the item should be
+     * @param int    $height    an integer saying how many rows tall the
+     *                           item should be
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayTextarea($name, $default = '', $width = 40,
@@ -347,10 +666,25 @@ class HTML_Form
     // {{{ displayTextareaRow()
 
     /**
+     * Prints a textarea input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $width     an integer saying how many characters wide
+     *                           the item should be
+     * @param int    $height    an integer saying how many rows tall the
+     *                           item should be
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayTextareaRow($name, $title, $default = '', $width = 40,
-                                $height = 5, $maxlength = '', $attr = '')
+                                $height = 5, $maxlength = 0, $attr = '')
     {
         print HTML_Form::returnTextareaRow($name, $title, $default, $width,
                                            $height, $maxlength, $attr);
@@ -364,6 +698,13 @@ class HTML_Form
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $name      a string used in the 'name' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displaySubmit($title = 'Submit Changes', $name = 'submit',
@@ -376,6 +717,15 @@ class HTML_Form
     // {{{ displaySubmitRow()
 
     /**
+     * Prints a submit button inside a table row
+     *
+     * @param string $name      a string used in the 'name' attribute
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displaySubmitRow($name = 'submit', $title = 'Submit Changes',
@@ -392,6 +742,12 @@ class HTML_Form
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayReset($title = 'Clear contents', $attr = '')
@@ -407,6 +763,12 @@ class HTML_Form
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayResetRow($title = 'Clear contents', $attr = '')
@@ -418,6 +780,24 @@ class HTML_Form
     // {{{ displaySelect()
 
     /**
+     * Prints a select list
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param array  $entries   an array containing the <options> to be listed.
+     *                           The array's keys become the option values and
+     *                           the array's values become the visible text.
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer saying how many rows should be
+     * @param string $blank     if this string is present, an <option> will be
+     *                           added to the top of the list that will contain
+     *                           the given text in the visible portion and an
+     *                           empty string as the value
+     * @param bool   $multiple  a bool saying if multiple choices are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displaySelect($name, $entries, $default = '', $size = 1,
@@ -431,6 +811,25 @@ class HTML_Form
     // {{{ displaySelectRow()
 
     /**
+     * Prints a select list inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param array  $entries   an array containing the <options> to be listed.
+     *                           The array's keys become the option values and
+     *                           the array's values become the visible text.
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer saying how many rows should be
+     * @param string $blank     if this string is present, an <option> will be
+     *                           added to the top of the list that will contain
+     *                           the given text in the visible portion and an
+     *                           empty string as the value
+     * @param bool   $multiple  a bool saying if multiple choices are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displaySelectRow($name, $title, $entries, $default = '',
@@ -445,6 +844,16 @@ class HTML_Form
     // {{{ displayImage()
 
     /**
+     * Prints an image input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $src       the string denoting the path to the image.
+     *                           Can be a relative path or full URI.
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -457,6 +866,17 @@ class HTML_Form
     // {{{ displayImageRow()
 
     /**
+     * Prints an image input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $src       the string denoting the path to the image.
+     *                           Can be a relative path or full URI.
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -469,6 +889,15 @@ class HTML_Form
     // {{{ displayHidden()
 
     /**
+     * Prints a hiden input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $value     the string used for the item's value
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayHidden($name, $value, $attr = '')
@@ -483,6 +912,16 @@ class HTML_Form
     // {{{ displayRadio()
 
     /**
+     * Prints a radio input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $value     the string used for the item's value
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayRadio($name, $value, $default = false, $attr = '')
@@ -494,6 +933,17 @@ class HTML_Form
     // {{{ displayRadioRow()
 
     /**
+     * Prints a radio input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $value     the string used for the item's value
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayRadioRow($name, $title, $value, $default = false,
@@ -507,6 +957,11 @@ class HTML_Form
     // {{{ displayBlank()
 
     /**
+     * Prints &nbsp;
+     *
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayBlank()
@@ -518,6 +973,14 @@ class HTML_Form
     // {{{ displayBlankRow()
 
     /**
+     * Prints a blank row in the table
+     *
+     * @param int    $i         the number of rows to create
+     * @param string $title     a string to be used as the label for the row.
+     *                           Ignored if $i is > 1.
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayBlankRow($i, $title= '')
@@ -529,6 +992,18 @@ class HTML_Form
     // {{{ displayFile()
 
     /**
+     * Prints a file upload input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayFile($name, $maxsize = HTML_FORM_MAX_FILE_SIZE,
@@ -542,6 +1017,19 @@ class HTML_Form
     // {{{ displayFileRow()
 
     /**
+     * Prints a file upload input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
@@ -556,6 +1044,13 @@ class HTML_Form
     // {{{ displayPlaintext()
 
     /**
+     * Prints the text provided
+     *
+     * @param string $text      a string to be displayed
+     *
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayPlaintext($text = '&nbsp;')
@@ -567,6 +1062,15 @@ class HTML_Form
     // {{{ displayPlaintextRow()
 
     /**
+     * Prints the text provided inside a table row
+     *
+     * @param string $title     the string used as the label
+     * @param string $text      a string to be displayed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return void
+     *
+     * @access public
      * @static
      */
     function displayPlaintextRow($title, $text = '&nbsp;', $attr = '')
@@ -581,10 +1085,21 @@ class HTML_Form
     // {{{ returnText()
 
     /**
+     * Produce a string containing a text input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnText($name, $default = '', $size = HTML_FORM_TEXT_SIZE,
-                        $maxlength = '', $attr = '')
+                        $maxlength = 0, $attr = '')
     {
         $str  = '<input type="text" name="' . $name . '" ';
         $str .= 'size="' . $size . '" value="' . $default . '" ';
@@ -598,10 +1113,22 @@ class HTML_Form
     // {{{ returnTextRow()
 
     /**
+     * Produce a string containing a text input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnTextRow($name, $title, $default = '',
-                           $size = HTML_FORM_TEXT_SIZE, $maxlength = '',
+                           $size = HTML_FORM_TEXT_SIZE, $maxlength = 0,
                            $attr = '')
     {
         $str  = " <tr>\n";
@@ -619,11 +1146,22 @@ class HTML_Form
     // {{{ returnPassword()
 
     /**
+     * Produce a string containing a password input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnPassword($name, $default = '',
                             $size = HTML_FORM_PASSWD_SIZE,
-                            $maxlength = '', $attr = '')
+                            $maxlength = 0, $attr = '')
     {
         $str  = '<input type="password" name="' . $name . '" ';
         $str .= 'size="' . $size . '" value="' . $default . '" ';
@@ -637,11 +1175,23 @@ class HTML_Form
     // {{{ returnPasswordRow()
 
     /**
+     * Produce a string containing a password input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnPasswordRow($name, $title, $default = '',
                                $size = HTML_FORM_PASSWD_SIZE,
-                               $maxlength = '', $attr = '')
+                               $maxlength = 0, $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <th align=\"right\">$title:</th>\n";
@@ -661,6 +1211,15 @@ class HTML_Form
     // {{{ returnCheckbox()
 
     /**
+     * Produce a string containing a checkbox input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnCheckbox($name, $default = false, $attr = '')
@@ -676,6 +1235,16 @@ class HTML_Form
     // {{{ returnCheckboxRow()
 
     /**
+     * Produce a string containing a checkbox input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnCheckboxRow($name, $title, $default = false, $attr = '')
@@ -694,10 +1263,24 @@ class HTML_Form
     // {{{ returnTextarea()
 
     /**
+     * Produce a string containing a textarea input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param mixed  $default   a default value for the element
+     * @param int    $width     an integer saying how many characters wide
+     *                           the item should be
+     * @param int    $height    an integer saying how many rows tall the
+     *                           item should be
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnTextarea($name, $default = '', $width = 40, $height = 5,
-                            $maxlength = '', $attr = '')
+                            $maxlength = 0, $attr = '')
     {
         $str  = '<textarea name="' . $name . '" cols="' . $width . '"';
         $str .= ' rows="' . $height . '" ';
@@ -715,10 +1298,25 @@ class HTML_Form
     // {{{ returnTextareaRow()
 
     /**
+     * Produce a string containing a textarea input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param mixed  $default   a default value for the element
+     * @param int    $width     an integer saying how many characters wide
+     *                           the item should be
+     * @param int    $height    an integer saying how many rows tall the
+     *                           item should be
+     * @param int    $maxlength an integer used in the 'maxlength' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnTextareaRow($name, $title, $default = '', $width = 40,
-                               $height = 5, $maxlength = '', $attr = '')
+                               $height = 5, $maxlength = 0, $attr = '')
     {
         $str  = " <tr>\n";
         $str .= "  <th align=\"right\">$title:</th>\n";
@@ -735,10 +1333,17 @@ class HTML_Form
     // {{{ returnSubmit()
 
     /**
-     * Produces a string containing a submit button
+     * Produce a string containing a submit button
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $name      a string used in the 'name' attribute
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnSubmit($title = 'Submit Changes', $name = 'submit',
@@ -752,6 +1357,15 @@ class HTML_Form
     // {{{ returnSubmitRow()
 
     /**
+     * Produce a string containing a submit button inside a table row
+     *
+     * @param string $name      a string used in the 'name' attribute
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnSubmitRow($name = 'submit', $title = 'Submit Changes',
@@ -771,10 +1385,16 @@ class HTML_Form
     // {{{ returnReset()
 
     /**
-     * Produces a string containing a reset button
+     * Produce a string containing a reset button
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnReset($title = 'Clear contents', $attr = '')
@@ -787,10 +1407,16 @@ class HTML_Form
     // {{{ returnResetRow()
 
     /**
-     * Produces a string containing a reset button inside a table row
+     * Produce a string containing a reset button inside a table row
      *
      * NOTE: Unusual parameter order.
      *
+     * @param string $title     a string that appears on the button
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnResetRow($title = 'Clear contents', $attr = '')
@@ -809,6 +1435,24 @@ class HTML_Form
     // {{{ returnSelect()
 
     /**
+     * Produce a string containing a select list
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param array  $entries   an array containing the <options> to be listed.
+     *                           The array's keys become the option values and
+     *                           the array's values become the visible text.
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer saying how many rows should be
+     * @param string $blank     if this string is present, an <option> will be
+     *                           added to the top of the list that will contain
+     *                           the given text in the visible portion and an
+     *                           empty string as the value
+     * @param bool   $multiple  a bool saying if multiple choices are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnSelect($name, $entries, $default = '', $size = 1,
@@ -852,6 +1496,25 @@ class HTML_Form
     // {{{ returnSelectRow()
 
     /**
+     * Produce a string containing a select list inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param array  $entries   an array containing the <options> to be listed.
+     *                           The array's keys become the option values and
+     *                           the array's values become the visible text.
+     * @param mixed  $default   a default value for the element
+     * @param int    $size      an integer saying how many rows should be
+     * @param string $blank     if this string is present, an <option> will be
+     *                           added to the top of the list that will contain
+     *                           the given text in the visible portion and an
+     *                           empty string as the value
+     * @param bool   $multiple  a bool saying if multiple choices are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnSelectRow($name, $title, $entries, $default = '', $size = 1,
@@ -872,6 +1535,16 @@ class HTML_Form
     // {{{ returnRadio()
 
     /**
+     * Produce a string containing a radio input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $value     the string used for the item's value
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -887,6 +1560,17 @@ class HTML_Form
     // {{{ returnRadioRow()
 
     /**
+     * Produce a string containing a radio input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $value     the string used for the item's value
+     * @param bool   $default   a bool indicating if item should be checked
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -905,6 +1589,16 @@ class HTML_Form
     // {{{ returnImage()
 
     /**
+     * Produce a string containing an image input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $src       the string denoting the path to the image.
+     *                           Can be a relative path or full URI.
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -918,6 +1612,17 @@ class HTML_Form
     // {{{ returnImageRow()
 
     /**
+     * Produce a string containing an image input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param string $src       the string denoting the path to the image.
+     *                           Can be a relative path or full URI.
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -934,6 +1639,18 @@ class HTML_Form
     // }}}
     // {{{ returnHidden()
 
+    /**
+     * Produce a string containing a hiden input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $value     the string used for the item's value
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
+     * @static
+     */
     function returnHidden($name, $value, $attr = '')
     {
         return '<input type="hidden" name="' . $name . '"'
@@ -944,6 +1661,11 @@ class HTML_Form
     // {{{ returnBlank()
 
     /**
+     * Produce a string containing &nbsp;
+     *
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -956,6 +1678,14 @@ class HTML_Form
     // {{{ returnBlankRow()
 
     /**
+     * Produce a string containing a blank row in the table
+     *
+     * @param int    $i         the number of rows to create
+     * @param string $title     a string to be used as the label for the row.
+     *                           Ignored if $i is > 1.
+     * @return string
+     *
+     * @access public
      * @static
      * @since Method available since Release 1.1.0
      */
@@ -982,6 +1712,18 @@ class HTML_Form
     // {{{ returnFile()
 
     /**
+     * Produce a string containing a file upload input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnFile($name = 'userfile',
@@ -1003,6 +1745,19 @@ class HTML_Form
     // {{{ returnFileRow()
 
     /**
+     * Produce a string containing a file upload input inside a table row
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param string $title     the string used as the label
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnFileRow($name, $title, $maxsize = HTML_FORM_MAX_FILE_SIZE,
@@ -1024,6 +1779,19 @@ class HTML_Form
     // {{{ returnMultipleFiles()
 
     /**
+     * Produce a string containing a file upload input
+     *
+     * @param string $name      the string used in the 'name' attribute
+     * @param int    $maxsize   an integer determining how large (in bytes) a
+     *                           submitted file can be.
+     * @param int    $files     an integer of how many file inputs to show
+     * @param int    $size      an integer used in the 'size' attribute
+     * @param string $accept    a string saying which MIME types are allowed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnMultipleFiles($name = 'userfile[]',
@@ -1053,6 +1821,12 @@ class HTML_Form
      * Produces a string containing the opening tags for the form and table
      *
      * NOTE: can NOT be called statically.
+     *
+     * @param bool $multipartformdata  a bool indicating if the form should
+     *                                  be submitted in multipart format
+     * @return string
+     *
+     * @access public
      */
     function returnStart($multipartformdata = false)
     {
@@ -1080,6 +1854,10 @@ class HTML_Form
      * Produces a string containing the opening tags for the form and table
      *
      * NOTE: can NOT be called statically.
+     *
+     * @return string
+     *
+     * @access public
      */
     function returnEnd()
     {
@@ -1101,6 +1879,13 @@ class HTML_Form
     // {{{ returnPlaintext()
 
     /**
+     * Produce a string containing the text provided
+     *
+     * @param string $text      a string to be displayed
+     *
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnPlaintext($text = '&nbsp;')
@@ -1112,6 +1897,15 @@ class HTML_Form
     // {{{ returnPlaintextRow()
 
     /**
+     * Produce a string containing the text provided inside a table row
+     *
+     * @param string $title     the string used as the label
+     * @param string $text      a string to be displayed
+     * @param string $attr      a string of additional attributes to be put
+     *                           in the element (example: 'id="foo"')
+     * @return string
+     *
+     * @access public
      * @static
      */
     function returnPlaintextRow($title, $text = '&nbsp;', $attr = '')
@@ -1134,6 +1928,10 @@ class HTML_Form
      * the add*() methods
      *
      * NOTE: can NOT be called statically.
+     *
+     * @return void
+     *
+     * @access public
      */
     function display()
     {
@@ -1233,9 +2031,10 @@ class HTML_Form
 }
 
 /*
-* Local variables:
-* tab-width: 4
-* c-basic-offset: 4
-* End:
-*/
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * End:
+ */
+
 ?>
