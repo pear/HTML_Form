@@ -468,7 +468,7 @@ echo $form->returnMultipleFiles('nm', 9, 2, 5, 'ac', 'id="i"');
 echo "============ FORM MANUAL ============\n";
 $tmp =& new HTML_Form('test.php', 'post', 'nm', 'tgt', 'enc', 'id="i"');
 $tmp->addText('nm', 'Ttl');
-$tmp->display();
+$tmp->display('class="tbl"', 'A Caption For You', 'class="cap"');
 
 ?>
 --GET--
@@ -1359,7 +1359,10 @@ $tmp->display();
 <input type="file" name="nm" size="5" accept="ac" id="i"/><br />
 ============ FORM MANUAL ============
 <form action="test.php" method="post" name="nm" target="tgt" enctype="enc" id="i">
-<table>
+<table class="tbl">
+ <caption class="cap">
+  A Caption For You
+ </caption>
  <tr>
   <th align="right">Ttl:</th>
   <td >

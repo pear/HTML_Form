@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.11 2004-06-14 03:19:19 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.12 2004-06-15 18:27:30 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -25,10 +25,33 @@ This package has been superceded by HTML_QuickForm.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1.0RC1</version>
+    <version>1.1.0RC2</version>
     <state>beta</state>
-    <date>2004-06-14</date>
+    <date>2004-06-15</date>
     <notes><![CDATA[
+* Add $attr, $caption and $capattr parameters to dislpay().
+
+* Improve docblocks for *passwordRow() methods.
+      ]]>
+    </notes>
+    <filelist>
+      <file role="php" name="HTML/Form.php"/>
+      <dir name="tests" role="test">
+        <file name="form.phpt">
+          <replace from="@include_path@" to="php_dir" type="pear-config"/>
+        </file>
+      </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.0" />
+    </deps>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.0RC1</version>
+      <state>beta</state>
+      <date>2004-06-14</date>
+      <notes><![CDATA[
 * Don't pass $this->action through basename() in
 returnStart() or start().  Bug #658.
 
@@ -120,21 +143,9 @@ radio:  3 should have been 1
 select: 4 should have been 5
 
 * Added tests.
-      ]]>
-    </notes>
-    <filelist>
-      <file role="php" name="HTML/Form.php"/>
-      <dir name="tests" role="test">
-        <file name="form.phpt">
-          <replace from="@include_path@" to="php_dir" type="pear-config"/>
-        </file>
-      </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.0.0" />
-    </deps>
-  </release>
-  <changelog>
+        ]]>
+      </notes>
+    </release>
     <release>
       <version>1.0.1</version>
       <state>stable</state>

@@ -130,13 +130,13 @@ class HTML_Form
     function HTML_Form($action, $method = 'get', $name = '', $target = '',
                        $enctype = '', $attr = '')
     {
-        $this->action = $action;
-        $this->method = $method;
-        $this->name = $name;
-        $this->fields = array();
-        $this->target = $target;
+        $this->action  = $action;
+        $this->method  = $method;
+        $this->name    = $name;
+        $this->fields  = array();
+        $this->target  = $target;
         $this->enctype = $enctype;
-        $this->attr = $attr;
+        $this->attr    = $attr;
     }
 
 
@@ -2246,12 +2246,17 @@ class HTML_Form
      *
      * NOTE: can NOT be called statically.
      *
+     * @param string $attr     a string of additional attributes to be put
+     *                          in the <table> tag (example: 'class="foo"')
+     * @param string $caption  if present, a <caption> is added to the table
+     * @param string $capattr  a string of additional attributes to be put
+     *                          in the <caption> tag (example: 'class="foo"')
      * @return void
      *
      * @access public
      * @see HTML_Form::end(), HTML_Form::end()
      */
-    function display()
+    function display($attr = '', $caption = '', $capattr = '')
     {
         $arrname = '_' . strtoupper($this->method);
         if (isset($$arrname)) {
@@ -2266,8 +2271,13 @@ class HTML_Form
         }
 
         $this->start();
-        print "<table>\n";
-        reset($this->fields);
+        print '<table ' .  $attr . ">\n";
+
+        if ($caption) {
+            print ' <caption ' . $capattr . ">\n  " . $caption;
+            print "\n </caption>\n";
+        }
+
         $hidden = array();
         foreach ($this->fields as $i => $data) {
             /*
