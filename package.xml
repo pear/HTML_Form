@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <!-- $Id: package.xml,v 1.16 2004-09-21 18:20:02 danielc Exp $ -->
+  <!-- $Id: package.xml,v 1.17 2004-10-04 23:04:35 danielc Exp $ -->
   <name>HTML_Form</name>
   <summary>Simple HTML form package</summary>
   <description>
@@ -25,15 +25,14 @@ This package has been superceded by HTML_QuickForm.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.1.0RC3</version>
+    <version>1.1.0RC4</version>
     <state>beta</state>
-    <date>2004-09-21</date>
+    <date>2004-10-05</date>
     <notes><![CDATA[
-* Added HTML_FORM_TH_ATTR and HTML_FORM_TD_ATTR constants.
-Used as default values for the $thattr and $tdattr
-parameters to most methods.
+* Add valign="top" to default value of HTML_FORM_TH_ATTR.
 
-* Enhance docblocks.
+* Use HTML_FORM_TH_ATTR as default for $thattr parameter
+in returnPlaintextRow() and addPlaintext().
       ]]>
     </notes>
     <filelist>
@@ -49,6 +48,31 @@ parameters to most methods.
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>1.1.0RC4</version>
+      <state>beta</state>
+      <date>2004-10-05</date>
+      <notes><![CDATA[
+* Add valign="top" to default value of HTML_FORM_TH_ATTR.
+
+* Use HTML_FORM_TH_ATTR as default for $thattr parameter
+in returnPlaintextRow() and addPlaintext().
+        ]]>
+      </notes>
+    </release>
+    <release>
+      <version>1.1.0RC3</version>
+      <state>beta</state>
+      <date>2004-09-21</date>
+      <notes><![CDATA[
+* Added HTML_FORM_TH_ATTR and HTML_FORM_TD_ATTR constants.
+Used as default values for the $thattr and $tdattr
+parameters to most methods.
+
+* Enhance docblocks.
+        ]]>
+      </notes>
+    </release>
     <release>
       <version>1.1.0RC2</version>
       <state>beta</state>

@@ -88,7 +88,7 @@ if (!defined('HTML_FORM_TH_ATTR')) {
      *
      * @since Constant available since Release 1.1.0
      */
-    define('HTML_FORM_TH_ATTR', 'align="right"');
+    define('HTML_FORM_TH_ATTR', 'align="right" valign="top"');
 }
 
 if (!defined('HTML_FORM_TD_ATTR')) {
@@ -601,7 +601,8 @@ class HTML_Form
      *      HTML_Form::returnPlaintext(), HTML_Form::returnPlaintextRow()
      */
     function addPlaintext($title, $text = '&nbsp;',
-                          $thattr = 'align="right" valign="top"', $tdattr = HTML_FORM_TD_ATTR)
+                          $thattr = HTML_FORM_TH_ATTR,
+                          $tdattr = HTML_FORM_TD_ATTR)
     {
         $this->fields[] = array('plaintext', $title, $text, $thattr, $tdattr);
     }
@@ -2306,7 +2307,7 @@ class HTML_Form
      *      HTML_Form::returnPlaintext(), HTML_Form::addPlaintext()
      */
     function returnPlaintextRow($title, $text = '&nbsp;',
-                                $thattr = 'align="right" valign="top"',
+                                $thattr = HTML_FORM_TH_ATTR,
                                 $tdattr = HTML_FORM_TD_ATTR)
     {
         $str  = " <tr>\n";
