@@ -20,12 +20,12 @@ form in "table mode" with a fixed layout.
     </maintainer>
   </maintainers>
   <release>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <state>stable</state>
     <date>2003-01-10</date>
     <notes>Initial independent release</notes>
     <filelist>
-     <file role="php" name="HTML/Form.php" baseinstalldir="HTML"/>
+     <file role="php" name="HTML/Form.php"/>
     </filelist>
   </release>
 </package>
