@@ -1,5 +1,7 @@
 --TEST--
 HTML_Form
+--INI--
+error_reporting = 2047
 --SKIPIF--
 --FILE--
 <?php
@@ -11,8 +13,6 @@ HTML_Form
  * @package  HTML_Form
  * @version  $Id$
  */
-
-error_reporting(E_ALL & ~E_STRICT);
 
 if (!defined('PATH_SEPARATOR')) {
     if (stristr(PHP_OS, 'WIN')) {
