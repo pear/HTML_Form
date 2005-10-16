@@ -5,6 +5,9 @@
 /**
  * HTML form utility functions
  *
+ * Release 1.3.0 introduces very important security fixes.
+ * Please make sure you have upgraded.
+ *
  * PHP versions 4 and 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
@@ -109,12 +112,15 @@ if (!defined('HTML_FORM_TD_ATTR')) {
 /**
  * HTML form utility functions
  *
+ * Release 1.3.0 introduces very important security fixes.
+ * Please make sure you have upgraded.
+ *
  * @category   HTML
  * @package    HTML_Form
  * @author     Stig Bakken <ssb@fast.no>
  * @author     Urs Gehrig <urs@circle.ch>
  * @author     Daniel Convissor <danielc@php.net>
- * @copyright  1997-2004 The PHP Group
+ * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/HTML_Form
@@ -172,6 +178,53 @@ class HTML_Form
      */
     var $attr;
 
+    /**
+     * an array indicating which parameter to an add*Row() method contains
+     * the the field's $default value
+     *
+     * @var array
+     * @access private
+     * @since Property available since Release 1.3.0
+     */
+    var $_default_params = array(
+        'blank'       => false,
+        'checkbox'    => 3,
+        'file'        => false,
+        'hidden'      => false,
+        'image'       => false,
+        'password'    => 3,
+        'passwordOne' => 3,
+        'plaintext'   => false,
+        'radio'       => 4,
+        'reset'       => false,
+        'select'      => 4,
+        'submit'      => false,
+        'text'        => 3,
+        'textarea'    => 3,
+    );
+
+    /**
+     * allow $_GET/$_POST data to show up in fields when a $default
+     * hasn't been set?
+     *
+     * @var boolean
+     * @access private
+     * @see HTML_Form::setDefaultFromInput()
+     * @since Property available since Release 1.3.0
+     */
+    var $_default_from_input = true;
+
+    /**
+     * escape the $_GET/$_POST data that shows up in fields when a $default
+     * hasn't been set?
+     *
+     * @var boolean
+     * @access private
+     * @see HTML_Form::setEscapeDefaultFromInput()
+     * @since Property available since Release 1.3.0
+     */
+    var $_escape_default_from_input = true;
+
 
     // }}}
     // {{{ constructor
@@ -204,6 +257,42 @@ class HTML_Form
         $this->attr    = $attr;
     }
 
+    /**
+     * Enables/Disables $_GET/$_POST user input data showing up in fields
+     * when a $default hasn't been set
+     *
+     * The default is TRUE.
+     *
+     * @param boolean $bool  TRUE to use $_GET/$_POST for the default,
+     *                        FALSE to default to an empty string
+     *
+     * @return void
+     *
+     * @see HTML_Form::setEscapeDefaultFromInput()
+     * @since Method available since Release 1.3.0
+     */
+    function setDefaultFromInput($bool) {
+        $this->_default_from_input = $bool;
+    }
+
+    /**
+     * Enables/Disables escaping of the $_GET/$_POST data that shows up in
+     * fields when a $default hasn't been set
+     *
+     * The default is TRUE.
+     *
+     * Uses htmlspecialchars() for the escaping.
+     *
+     * @param boolean $bool  TRUE to escape, FALSE to disable escaping
+     *
+     * @return void
+     *
+     * @see HTML_Form::setDefaultFromInput()
+     * @since Method available since Release 1.3.0
+     */
+    function setEscapeDefaultFromInput($bool) {
+        $this->_escape_default_from_input = $bool;
+    }
 
     // ===========  ADD  ===========
 
@@ -2468,7 +2557,15 @@ class HTML_Form
      * Prints a complete form with all fields you specified via
      * the add*() methods
      *
-     * If the $_GET/$_POST supreglobal don't exist, then
+     * If you did not specify a field's default value (via the $default
+     * parameter to the add*() method in question), this method will
+     * automatically insert the user input found in $_GET/$_POST.  This
+     * behavior can be disabled via setDefaultFromInput(false).
+     *
+     * The $_GET/$_POST input is automatically escaped via htmlspecialchars().
+     * This behavior can be disabled via setEscapeDefaultFromInput(false).
+     *
+     * If the $_GET/$_POST superglobal doesn't exist, then
      * $HTTP_GET_VARS/$HTTP_POST_VARS is used.
      *
      * NOTE: can NOT be called statically.
@@ -2481,19 +2578,33 @@ class HTML_Form
      * @return void
      *
      * @access public
-     * @see HTML_Form::end(), HTML_Form::end()
+     * @see HTML_Form::end(), HTML_Form::returnEnd(),
+     *      HTML_Form::setDefaultFromInput(),
+     *      HTML_Form::setEscapeDefaultFromInput()
      */
     function display($attr = '', $caption = '', $capattr = '')
     {
-        $arrname = '_' . strtoupper($this->method);
-        if (isset($$arrname)) {
-            $arr =& $$arrname;
-        } else {
-            $arrname = 'HTTP' . $arrname . '_VARS';
-            if (isset($GLOBALS[$arrname])) {
-                $arr =& $GLOBALS[$arrname];
+        // Determine where to get the user input from.
+
+        if (strtoupper($this->method) == 'POST') {
+            if (!empty($_POST)) {
+                $input =& $_POST;
             } else {
-                $arr = array();
+                if (!empty($HTTP_POST_VARS)) {
+                    $input =& $HTTP_POST_VARS;
+                } else {
+                    $input = array();
+                }
+            }
+        } else {
+            if (!empty($_GET)) {
+                $input =& $_GET;
+            } else {
+                if (!empty($HTTP_GET_VARS)) {
+                    $input =& $HTTP_GET_VARS;
+                } else {
+                    $input = array();
+                }
             }
         }
 
@@ -2505,87 +2616,52 @@ class HTML_Form
             print "\n </caption>\n";
         }
 
+        /*
+         * Go through each field created through the add*() methods
+         * and pass their arguments on to the display*Row() methods.
+         */
+
         $hidden = array();
-        foreach ($this->fields as $i => $data) {
-            /*
-             * $params = the number of arguments the add*() methods have
-             * $defind = the number of them that have default values 
-             */
-            switch ($data[0]) {
+        foreach ($this->fields as $field_index => $field) {
+            $type = $field[0];
+            $name = $field[1];
+
+            switch ($type) {
                 case 'hidden':
-                    $hidden[] = $i;
-                    $defind = 1;
-                    continue 2;
-                case 'reset':
-                    $params = 4;
-                    $defind = 4;
-                    break;
-                case 'submit':
-                    $params = 5;
-                    $defind = 5;
-                    break;
-                case 'blank':
-                    $params = 4;
-                    $defind = 3;
-                    break;
-                case 'image':
-                    $params = 6;
-                    $defind = 3;
-                    break;
-                case 'checkbox':
-                    $params = 6;
-                    $defind = 4;
-                    break;
-                case 'file':
-                case 'text':
-                    $params = 8;
-                    $defind = 6;
-                    break;
-                case 'password':
-                case 'passwordOne':
-                    $params = 8;
-                    $defind = 5;
-                    break;
-                case 'radio':
-                    $params = 7;
-                    $defind = 4;
-                    break;
-                case 'textarea':
-                    $params = 9;
-                    $defind = 6;
-                    break;
-                case 'select':
-                    $params = 10;
-                    $defind = 7;
-                    break;
-                case 'plaintext':
-                    $params = 4;
-                    $defind = 3;
-                    break;
-                default:
-                    // unknown field type
+                    // Deal with these later so they don't mess up layout.
+                    $hidden[] = $field_index;
                     continue 2;
             }
-            $str = '$this->display' . ucfirst($data[0]) . 'Row(';
-            for ($i = 1; $i <= $params; $i++) {
-                if ($i == $defind && $data[$defind] === null &&
-                    isset($arr[$data[1]]))
-                {
-                    $str .= '$arr[\'' . $data[1] . '\']';
+
+            if ($this->_default_from_input
+                && $this->_default_params[$type]
+                && $field[$this->_default_params[$type]] === null
+                && array_key_exists($name, $input))
+            {
+                // Grab the user input from $_GET/$_POST.
+                if ($this->_escape_default_from_input) {
+                    $field[$this->_default_params[$type]] =
+                            htmlspecialchars($input[$name]);
                 } else {
-                    $str .= '$data[' . $i . ']';
+                    $field[$this->_default_params[$type]] = $input[$name];
                 }
-                if ($i < $params) $str .= ', ';
             }
-            $str .= ');';
-            eval($str);
+
+            array_shift($field);
+            call_user_func_array(
+                array(&$this, 'display' . ucfirst($type) . 'Row'),
+                $field
+            );
         }
+
         print "</table>\n";
+
         for ($i = 0; $i < sizeof($hidden); $i++) {
             $this->displayHidden($this->fields[$hidden[$i]][1],
                                  $this->fields[$hidden[$i]][2],
                                  $this->fields[$hidden[$i]][3]);
         }
+
         $this->end();
     }
 
