@@ -1,7 +1,5 @@
 --TEST--
 HTML_Form
---INI--
-error_reporting = 2047
 --SKIPIF--
 --FILE--
 <?php
