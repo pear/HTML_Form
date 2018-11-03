@@ -3,6 +3,16 @@
   "description": "More info available on: http://pear.php.net/package/HTML_Form",
   "type": "library",
   "authors": [
+    {
+      "email": "stig@php.net",
+      "name": "Stig Bakken",
+      "role": "maintainer"
+    },
+    {
+      "email": "danielc@php.net",
+      "name": "Daniel Convissor",
+      "role": "maintainer"
+    }
   ],
   "autoload": {
     "psr-0": {
