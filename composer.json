@@ -1,0 +1,33 @@
+{
+  "name": "pear/html_form",
+  "description": "More info available on: http://pear.php.net/package/HTML_Form",
+  "type": "library",
+  "authors": [
+    {
+      "email": "stig@php.net",
+      "name": "Stig Bakken",
+      "role": "maintainer"
+    },
+    {
+      "email": "danielc@php.net",
+      "name": "Daniel Convissor",
+      "role": "maintainer"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "HTML": "./"
+    }
+  },
+  "include-path": [
+    "./"
+  ],
+  "license": "PHP-3.0",
+  "support": {
+    "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_Form",
+    "source": "https://github.com/pear/HTML_Form"
+  },
+  "require": {
+    "pear/pear_exception": "*"
+  }
+}

@@ -1,0 +1,5 @@
+# composer related
+/composer.lock
+/vendor
+# pear tests
+/run-tests.log
