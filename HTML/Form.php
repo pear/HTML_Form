@@ -245,7 +245,7 @@ class HTML_Form
      *
      * @access public
      */
-    function HTML_Form($action, $method = 'get', $name = '', $target = '',
+    function __construct($action, $method = 'get', $name = '', $target = '',
                        $enctype = '', $attr = '')
     {
         $this->action  = $action;
